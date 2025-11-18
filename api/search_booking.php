@@ -7,7 +7,8 @@
 require_once '../config.php';
 require_once '../db.php';
 
-header('Content-Type: application/json');
+
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 try {
     $conn = getDB();
     
-    // Get input data
+    // Get input data from GET or POST
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $input = json_decode(file_get_contents('php://input'), true);
         if (empty($input)) {
@@ -40,17 +41,15 @@ try {
     
     // Search for bookings matching pickup and dropoff locations
     $query = "SELECT * FROM bookings WHERE 
-              (pickup_location LIKE ? OR pickup_location LIKE ?) AND 
-              (dropoff_location LIKE ? OR dropoff_location LIKE ?)
+              pickup_location LIKE ? AND 
+              dropoff_location LIKE ?
               ORDER BY created_at DESC LIMIT 50";
     
-    $pickup_exact = $pickup;
     $pickup_like = '%' . $pickup . '%';
-    $dropoff_exact = $dropoff;
     $dropoff_like = '%' . $dropoff . '%';
     
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssss", $pickup_exact, $pickup_like, $dropoff_exact, $dropoff_like);
+    $stmt->bind_param("ss", $pickup_like, $dropoff_like);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -75,4 +74,3 @@ try {
     sendJSONResponse(false, 'Error: ' . $e->getMessage(), null, 500);
 }
 ?>
-

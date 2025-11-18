@@ -7,7 +7,8 @@
 require_once '../config.php';
 require_once '../db.php';
 
-header('Content-Type: application/json');
+
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -106,4 +107,3 @@ try {
     sendJSONResponse(false, 'Error: ' . $e->getMessage(), null, 500);
 }
 ?>
-

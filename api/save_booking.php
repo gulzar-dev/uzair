@@ -1,15 +1,11 @@
 <?php
 /**
- * Save Booking API Endpoint for XAMPP
+ * Save Booking API Endpoint
  * Handles booking creation and storage in MySQL
  */
 
-// XAMPP MySQL Configuration
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'cab_booking');
-define('DB_USER', 'root');
-define('DB_PASSWORD', '');
-define('DB_CHARSET', 'utf8mb4');
+require_once '../config.php';
+require_once '../db.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -79,16 +75,16 @@ try {
     }
     
     // Generate unique booking ID
-    $booking_id = 'BK' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+    $booking_id = 'BK' . strtoupper(uniqid());
     
-    // Check if booking ID already exists
+    // Check if booking ID already exists (highly unlikely but good practice)
     $check_stmt = $conn->prepare("SELECT id FROM bookings WHERE booking_id = ?");
     $check_stmt->bind_param("s", $booking_id);
     $check_stmt->execute();
     $result = $check_stmt->get_result();
     
     while ($result->num_rows > 0) {
-        $booking_id = 'BK' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+        $booking_id = 'BK' . strtoupper(uniqid());
         $check_stmt->bind_param("s", $booking_id);
         $check_stmt->execute();
         $result = $check_stmt->get_result();
@@ -146,33 +142,3 @@ try {
         'message' => 'Error: ' . $e->getMessage()
     ]);
 }
-
-// Database connection function for XAMPP
-function getDB() {
-    static $conn = null;
-    
-    if ($conn === null) {
-        try {
-            $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-            if ($conn->connect_error) {
-                error_log("Database connection failed: " . $conn->connect_error);
-                return false;
-            }
-            $conn->set_charset(DB_CHARSET);
-        } catch (Exception $e) {
-            error_log("Database connection error: " . $e->getMessage());
-            return false;
-        }
-    }
-    
-    return $conn;
-}
-
-// Input sanitization function
-function sanitizeInput($data) {
-    if ($data === null) {
-        return '';
-    }
-    return htmlspecialchars(strip_tags(trim($data)));
-}
-?>

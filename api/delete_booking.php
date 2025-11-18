@@ -7,7 +7,8 @@
 require_once '../config.php';
 require_once '../db.php';
 
-header('Content-Type: application/json');
+
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: DELETE, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 try {
-    // Get booking ID
+    // Get booking ID from DELETE request body or POST data
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         $input = json_decode(file_get_contents('php://input'), true);
     } else {
@@ -33,7 +34,7 @@ try {
     $booking_id = sanitizeInput($input['booking_id']);
     $conn = getDB();
     
-    // Check if booking exists
+    // Check if booking exists before deleting
     $check_stmt = $conn->prepare("SELECT * FROM bookings WHERE booking_id = ?");
     $check_stmt->bind_param("s", $booking_id);
     $check_stmt->execute();
@@ -43,7 +44,6 @@ try {
         sendJSONResponse(false, 'Booking not found', null, 404);
     }
     
-    $booking = $result->fetch_assoc();
     $check_stmt->close();
     
     // Delete booking
@@ -63,4 +63,3 @@ try {
     sendJSONResponse(false, 'Error: ' . $e->getMessage(), null, 500);
 }
 ?>
-

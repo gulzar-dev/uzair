@@ -2190,7 +2190,7 @@
                 </div>
             </div>
 
-            <form id="bookingForm">
+            <form id="bookingForm" >
                 <!-- Ride Details Section -->
                 <div class="form-section">
                     <h2 class="section-title">
@@ -2724,11 +2724,12 @@
         </div>
     </div>
 
-    <script>
-        // Get user info from sessionStorage
-        const userName = sessionStorage.getItem('userName'); // branded profile name
-        const userPhone = sessionStorage.getItem('userPhone');
-        const customerFullName = sessionStorage.getItem('customerFullName');
+<script>
+        
+        // Get user info from localStorage
+        const userName = localStorage.getItem('userName'); // branded profile name
+        const userPhone = localStorage.getItem('userPhone');
+        const customerFullName = localStorage.getItem('customerFullName');
 
         // Redirect to login if no essential user data
         if (!userPhone) {
@@ -2804,7 +2805,7 @@
             const offlineBookings = bookings.filter(item => !item.booking_id);
 
             try {
-                const response = await fetch(`api/get_bookings.php?customer_phone=${encodeURIComponent(userPhone)}&limit=${MAX_HISTORY_RECORDS}`);
+                const response = await fetch(`/uzair/api/get_bookings.php?customer_phone=${encodeURIComponent(userPhone)}&limit=${MAX_HISTORY_RECORDS}`, { method: "GET" });
                 const result = await response.json();
 
                 if (result.success && result.data?.bookings) {
@@ -3013,7 +3014,7 @@
             isRideHistoryLoading = true;
 
             try {
-                const response = await fetch(`api/get_ride_history.php?customer_phone=${encodeURIComponent(userPhone)}&limit=${MAX_HISTORY_RECORDS}`);
+                const response = await fetch(`/uzair/api/get_ride_history.php?customer_phone=${encodeURIComponent(userPhone)}&limit=${MAX_HISTORY_RECORDS}`);
                 const result = await response.json();
 
                 if (result.success && result.data?.rides) {
@@ -3158,7 +3159,7 @@
 
             if (!ride) {
                 try {
-                    const response = await fetch(`api/get_ride_detail.php?booking_id=${encodeURIComponent(bookingId)}`);
+                    const response = await fetch(`/uzair/api/get_ride_detail.php?booking_id=${encodeURIComponent(bookingId)}`);
                     const result = await response.json();
                     if (result.success && result.data) {
                         ride = result.data;
@@ -3299,7 +3300,7 @@
 
             try {
                 // Send booking to backend API
-                const response = await fetch('api/save_booking.php', {
+                const response = await fetch('/uzair/api/save_booking.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3670,7 +3671,7 @@
 
             try {
                 // Search bookings from API
-                const response = await fetch(`api/search_booking.php?pickup=${encodeURIComponent(pickup)}&dropoff=${encodeURIComponent(dropoff)}`);
+                const response = await fetch(`/uzair/api/search_booking.php?pickup=${encodeURIComponent(pickup)}&dropoff=${encodeURIComponent(dropoff)}`);
                 const result = await response.json();
 
                 if (result.success && result.data.bookings.length > 0) {
@@ -3893,3 +3894,5 @@
             // Scroll to success message
             feedbackSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
+
+</script>

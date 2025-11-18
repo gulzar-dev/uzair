@@ -26,13 +26,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Helper Functions
-function sanitizeInput($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
 
 function isLoggedIn() {
     return isset($_SESSION['user_id']);
@@ -65,6 +58,19 @@ function sendJSONResponse($success, $message, $data = null, $statusCode = 200) {
     
     echo json_encode($response);
     exit();
+}
+
+/**
+ * Sanitizes user input.
+ *
+ * @param string|null $data The data to sanitize.
+ * @return string The sanitized data.
+ */
+function sanitizeInput($data) {
+    if ($data === null) {
+        return '';
+    }
+    return htmlspecialchars(strip_tags(trim($data)));
 }
 ?>
 

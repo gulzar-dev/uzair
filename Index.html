@@ -715,15 +715,45 @@
             }
 
             if (isValid) {
-                // Store customer info (personal name kept separate), profile identity stays Cab Services
-                sessionStorage.setItem('customerFullName', name);
-                sessionStorage.setItem('userName', BRAND_IDENTITY);
-                sessionStorage.setItem('userDisplayName', BRAND_IDENTITY);
-                sessionStorage.setItem('userPublicInfo', BRAND_IDENTITY);
-                sessionStorage.setItem('userPhone', phone);
-                
-                // Redirect to booking details page
-                window.location.href = 'booking-details.html';
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Processing...';
+
+                fetch('/uzair/api/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userName: name,
+                        userPhone: phone
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Store customer info
+                        localStorage.setItem('customerFullName', data.user.fullName);
+                        localStorage.setItem('userPhone', data.user.phone);
+                        localStorage.setItem('userId', data.user.id);
+                        localStorage.setItem('userName', BRAND_IDENTITY);
+                        localStorage.setItem('userDisplayName', BRAND_IDENTITY);
+                        localStorage.setItem('userPublicInfo', BRAND_IDENTITY);
+                        
+                        // Redirect to booking details page
+                        window.location.href = 'booking-details.html';
+                        // console.log(localStorage)
+                    } else {
+                        alert(data.message || 'An unexpected error occurred.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Login error:', error);
+                    alert('Could not connect to the server. Please try again later.');
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Continue to Booking';
+                });
             }
         });
 

@@ -7,7 +7,8 @@
 require_once '../config.php';
 require_once '../db.php';
 
-header('Content-Type: application/json');
+
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -62,12 +63,20 @@ try {
         $types .= "s";
     }
     
+    // Build the count query before adding LIMIT and OFFSET
+    $count_query = "SELECT COUNT(*) as total FROM bookings WHERE " . substr(strstr($query, "WHERE"), 6);
+    $count_params = $params;
+    $count_types = $types;
+
     $query .= " ORDER BY created_at DESC LIMIT ? OFFSET ?";
     $params[] = $limit;
     $params[] = $offset;
     $types .= "ii";
     
     $stmt = $conn->prepare($query);
+    if ($stmt === false) {
+        throw new Exception('Prepare failed: ' . $conn->error);
+    }
     
     if (!empty($params)) {
         $stmt->bind_param($types, ...$params);
@@ -82,34 +91,6 @@ try {
     }
     
     // Get total count
-    $count_query = "SELECT COUNT(*) as total FROM bookings WHERE 1=1";
-    $count_params = [];
-    $count_types = "";
-    
-    if ($user_id !== null) {
-        $count_query .= " AND user_id = ?";
-        $count_params[] = $user_id;
-        $count_types .= "i";
-    }
-    
-    if ($booking_id !== null) {
-        $count_query .= " AND booking_id = ?";
-        $count_params[] = $booking_id;
-        $count_types .= "s";
-    }
-    
-    if ($status !== null) {
-        $count_query .= " AND status = ?";
-        $count_params[] = $status;
-        $count_types .= "s";
-    }
-
-    if ($customer_phone !== null) {
-        $count_query .= " AND customer_phone = ?";
-        $count_params[] = $customer_phone;
-        $count_types .= "s";
-    }
-    
     $count_stmt = $conn->prepare($count_query);
     if (!empty($count_params)) {
         $count_stmt->bind_param($count_types, ...$count_params);
@@ -133,4 +114,3 @@ try {
     sendJSONResponse(false, 'Error: ' . $e->getMessage(), null, 500);
 }
 ?>
-

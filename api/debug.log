@@ -1,0 +1,16 @@
+--- New Request at 2025-11-18 23:03:52 ---
+Step 1: Loading includes...
+Step 2: Includes loaded.
+Step 3: Processing GET request.
+Step 4: Customer phone is '9970510862'.
+Step 5: Limit is 50, Offset is 0.
+Step 6: Attempting DB connection...
+Step 7: DB connection object received.
+Step 8: DB connection successful.
+Step 9: Query defined.
+Step 10: Statement prepared.
+Step 11: Params bound.
+Step 12: Statement executed.
+Step 13: Result obtained.
+Step 14: 3 rides processed.
+Step 15: JSON response sent.
