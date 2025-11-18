@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Account Details - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #000;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            color: #000;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .bank-icon {
+            position: absolute;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .bank-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .input-full {
+            width: 100%;
+        }
+
+        .input-half {
+            width: 48%;
+        }
+
+        .input-quarter {
+            width: 48%;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 4%;
+            justify-content: space-between;
+        }
+
+        .continue-btn {
+            width: 100%;
+            padding: 16px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .continue-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .continue-btn:active {
+            transform: translateY(0);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .form-title {
+                font-size: 24px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .input-half,
+            .input-quarter {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-link">← Back</a>
+        <h1 class="form-title">Bank account details</h1>
+        
+        <form id="bankAccountForm">
+            <div class="form-group">
+                <label for="bankName">Name of bank</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="bankName" 
+                        name="bankName" 
+                        placeholder="Enter bank name"
+                        class="input-full"
+                        required
+                    />
+                    <div class="bank-icon" onclick="showBankList()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="7" y1="8" x2="17" y2="8"/>
+                            <line x1="7" y1="12" x2="17" y2="12"/>
+                            <line x1="7" y1="16" x2="17" y2="16"/>
+                            <circle cx="19" cy="5" r="2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="accountName">Account name</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="accountName" 
+                        name="accountName" 
+                        placeholder="Enter account holder name"
+                        class="input-full"
+                        required
+                    />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group" style="width: 100%;">
+                    <label for="accountNumber">Account number</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="accountNumber" 
+                            name="accountNumber" 
+                            placeholder="Enter account number"
+                            class="input-half"
+                            required
+                            maxlength="20"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group" style="width: 100%;">
+                    <label for="sortCode">Sort code</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="sortCode" 
+                            name="sortCode" 
+                            placeholder="Enter sort code"
+                            class="input-quarter"
+                            required
+                            maxlength="6"
+                            pattern="[0-9]{6}"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="continue-btn">Continue</button>
+        </form>
+    </div>
+
+    <script>
+        // Get user info from sessionStorage
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+
+        // Redirect to login if no user data
+        if (!userName || !userPhone) {
+            window.location.href = 'login.html';
+        }
+
+        // Pre-fill account name with user name
+        if (userName) {
+            document.getElementById('accountName').value = userName;
+        }
+
+        // Show bank list (placeholder for future implementation)
+        function showBankList() {
+            const banks = [
+                'State Bank of India',
+                'HDFC Bank',
+                'ICICI Bank',
+                'Axis Bank',
+                'Punjab National Bank',
+                'Bank of Baroda',
+                'Canara Bank',
+                'Union Bank of India',
+                'Indian Bank',
+                'Kotak Mahindra Bank'
+            ];
+            
+            const bankName = prompt('Select a bank:\n\n' + banks.map((b, i) => `${i + 1}. ${b}`).join('\n') + '\n\nEnter bank name:');
+            if (bankName) {
+                document.getElementById('bankName').value = bankName;
+            }
+        }
+
+        // Form validation and submission
+        const bankAccountForm = document.getElementById('bankAccountForm');
+        
+        bankAccountForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const bankName = document.getElementById('bankName').value.trim();
+            const accountName = document.getElementById('accountName').value.trim();
+            const accountNumber = document.getElementById('accountNumber').value.trim();
+            const sortCode = document.getElementById('sortCode').value.trim();
+            
+            // Validation
+            if (!bankName || !accountName || !accountNumber || !sortCode) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (accountNumber.length < 8) {
+                alert('Account number must be at least 8 digits');
+                return;
+            }
+            
+            if (sortCode.length !== 6 || !/^\d{6}$/.test(sortCode)) {
+                alert('Sort code must be exactly 6 digits');
+                return;
+            }
+            
+            // Save bank account details to localStorage
+            const bankDetails = {
+                bankName: bankName,
+                accountName: accountName,
+                accountNumber: accountNumber,
+                sortCode: sortCode,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('bankAccountDetails', JSON.stringify(bankDetails));
+            
+            // Show success message
+            alert('Bank account details saved successfully!');
+            
+            // Redirect back to profile
+            window.location.href = 'profile.html';
+        });
+
+        // Format account number (add spaces for readability)
+        document.getElementById('accountNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            if (value.length > 0) {
+                value = value.match(/.{1,4}/g).join(' ');
+            }
+            e.target.value = value;
+        });
+
+        // Format sort code (add dash for readability)
+        document.getElementById('sortCode').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '').slice(0, 6);
+            if (value.length > 3) {
+                value = value.slice(0, 3) + '-' + value.slice(3);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
+

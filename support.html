@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .support-item {
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .support-item:hover { border-color: #667eea; background: #f7fafc; }
+        .support-item h3 { color: #2d3748; font-size: 16px; margin-bottom: 5px; }
+        .support-item p { color: #718096; font-size: 13px; }
+        .contact-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #25D366 0%, #20ba5a 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Support</h1>
+            <div class="support-item" onclick="window.open('https://wa.me/918669164040', '_blank')">
+                <h3>💬 Chat with Us</h3>
+                <p>Get instant help via WhatsApp</p>
+            </div>
+            <div class="support-item" onclick="window.location.href='tel:+918669164040'">
+                <h3>📞 Call Support</h3>
+                <p>Speak with our support team</p>
+            </div>
+            <div class="support-item">
+                <h3>📧 Email Support</h3>
+                <p>support@smartcab.com</p>
+            </div>
+            <div class="support-item">
+                <h3>❓ FAQ</h3>
+                <p>Frequently asked questions</p>
+            </div>
+            <button class="contact-btn" onclick="openWhatsApp()">Contact via WhatsApp</button>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+        
+        function openWhatsApp() {
+            const message = `Hello Smart Cab Support!\n\nI need assistance.\n\nName: ${userName}\nPhone: ${userPhone}`;
+            window.open(`https://wa.me/918669164040?text=${encodeURIComponent(message)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
+

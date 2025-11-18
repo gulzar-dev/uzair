@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Smart Cab Service System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+:root{--bg:#0b1220;--panel:#0f172a;--card:rgba(255,255,255,.06);--text:#e5e7eb;--muted:#a3a9b5;--primary:#22d3ee;--primary-700:#0891b2;--accent:#a78bfa;--danger:#ef4444;--ring:rgba(34,211,238,.4)}*{box-sizing:border-box}html,body{padding:0;margin:0}body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:radial-gradient(1200px 600px at 80% -10%,rgba(167,139,250,.25),transparent 55%),radial-gradient(800px 400px at 15% 10%,rgba(34,211,238,.18),transparent 60%),var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.container{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
+.site-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(11,18,32,.9),rgba(11,18,32,.6) 60%,transparent);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid rgba(255,255,255,.06)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.branding{display:flex;align-items:center;gap:10px}.logo{width:28px;height:28px}.brand-name{font-weight:700;letter-spacing:.3px}
+.nav a{color:var(--text);text-decoration:none;margin-left:16px;opacity:.9} .nav a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));color:#fff;text-decoration:none;cursor:pointer;transition:.2s ease;box-shadow:0 1px 0 rgba(255,255,255,.1) inset}.btn:hover{transform:translateY(-1px)}.btn-primary{background:linear-gradient(180deg,var(--primary),var(--primary-700));border:none;box-shadow:0 8px 24px rgba(34,211,238,.25)}.btn-outline{border-color:rgba(255,255,255,.28)}.btn-ghost{background:transparent;border-color:rgba(255,255,255,.18)}.btn-danger{background:linear-gradient(180deg,#f87171,var(--danger));border:none}
+.hero{padding:64px 0 24px;border-bottom:1px solid rgba(255,255,255,.06)}.hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+.hero h1{font-size:38px;line-height:1.1;margin:0 0 12px;font-weight:800;background:linear-gradient(90deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--muted);margin:0 0 18px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.map-card{position:relative;height:240px;border-radius:18px;background:linear-gradient(160deg,rgba(34,211,238,.15),rgba(167,139,250,.12));border:1px solid rgba(255,255,255,.16);overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.pin{position:absolute;width:14px;height:14px;border-radius:50%;background:#22d3ee;box-shadow:0 0 0 6px rgba(34,211,238,.18),0 0 24px rgba(34,211,238,.6)}.pin-b{right:18%;bottom:20%;background:#a78bfa;box-shadow:0 0 0 6px rgba(167,139,250,.18),0 0 24px rgba(167,139,250,.6)}.pin-a{left:14%;top:22%}
+.route{position:absolute;left:0;top:0;width:100%;height:100%;background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(255,255,255,.05) 10px,rgba(255,255,255,.05) 20px);mask:radial-gradient(120px 120px at 20% 20%,#000 20%,transparent 60%),radial-gradient(120px 120px at 80% 80%,#000 20%,transparent 60%);animation:scroll 18s linear infinite}@keyframes scroll{to{background-position:-200% 0}}
+.features{padding:36px 0}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feature{padding:18px;border-radius:14px;background:var(--card);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(8px)}.feature-icon{font-size:22px;margin-bottom:6px}
+.panel{padding:36px 0}
+.card{padding:18px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.form-field{display:flex;flex-direction:column;gap:6px}
+.form-field input,.form-field select,.form-field textarea{padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(11,18,32,.6);color:#fff;outline:2px solid transparent;outline-offset:2px} .form-field input:focus,.form-field select:focus,.form-field textarea:focus{outline-color:var(--ring)}
+.form-field .hint{color:var(--muted);font-size:12px}
+.checkbox{display:inline-flex;align-items:center;gap:10px}
+.form-actions{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
+.result{margin-top:14px}
+.tracker{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tracker-map{position:relative;height:200px;border-radius:12px;background:linear-gradient(160deg,rgba(34,211,238,.1),rgba(167,139,250,.1));overflow:hidden;border:1px dashed rgba(255,255,255,.16)}
+.track{position:absolute;left:8%;right:8%;top:50%;height:2px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.2) 0 16px,transparent 16px 24px)}
+.car{position:absolute;top:calc(50% - 9px);left:8%;width:26px;height:18px;border-radius:6px;background:linear-gradient(180deg,#fff,var(--accent));box-shadow:0 6px 14px rgba(167,139,250,.4);animation:drive 10s linear infinite}@keyframes drive{0%{left:8%}50%{left:66%}100%{left:8%}}
+.tracker-info{display:flex;flex-direction:column;gap:8px}
+.status-line{color:var(--muted)}
+.site-footer{border-top:1px solid rgba(255,255,255,.06);padding:18px 0;color:var(--muted)}.footer-inner{display:flex;align-items:center;justify-content:space-between}
+@media (max-width:900px){.hero-inner{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr 1fr}.tracker{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
+
+/* Dashboard & tables */
+.tabs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.table-wrap{width:100%;overflow:auto}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;white-space:nowrap}
+.table th{color:#fff;font-weight:600}
+.table tr:hover td{background:rgba(255,255,255,.03)}
+
+/* Hero background (no image) */
+.hero{background:linear-gradient(180deg,rgba(11,18,32,.85),rgba(11,18,32,.6))}
+.hero-image{display:block;width:100%;height:auto;margin-top:12px;border-radius:14px;border:1px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:100}
+.modal-backdrop.show{display:flex}
+.modal{width:min(520px,92vw);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);box-shadow:0 20px 60px rgba(0,0,0,.45);padding:18px}
+.modal h3{margin:0 0 8px}
+.modal p{margin:0 0 12px;color:var(--muted)}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+/* WhatsApp floating widget */
+.wa-widget{position:fixed;right:18px;bottom:18px;z-index:60}
+.wa-fab{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#25D366;box-shadow:0 10px 24px rgba(0,0,0,.3);border:none;cursor:pointer}
+.wa-fab svg{width:28px;height:28px;fill:#fff}
+.wa-chat{position:fixed;right:18px;bottom:90px;width:min(340px,92vw);border-radius:12px;background:#fff;color:#0f172a;box-shadow:0 14px 40px rgba(0,0,0,.35);overflow:hidden;display:none}
+.wa-chat.show{display:block}
+.wa-chat-header{display:flex;align-items:center;gap:10px;background:#128C7E;color:#fff;padding:10px 12px}
+.wa-chat-header img{width:28px;height:28px;border-radius:50%;background:#e2e8f0}
+.wa-chat-body{background:#efeae2;padding:12px;height:220px;overflow:auto}
+.wa-bubble{background:#fff;border-radius:8px;padding:10px 12px;box-shadow:0 1px 0 rgba(0,0,0,.04);max-width:90%}
+.wa-chat-input{display:flex;gap:8px;padding:10px;background:#f5f6f6}
+.wa-input{flex:1;padding:10px 12px;border-radius:20px;border:1px solid #e5e7eb;outline:0}
+.wa-send{width:44px;height:44px;border-radius:50%;border:none;background:#25D366;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.wa-send svg{width:20px;height:20px;fill:#fff}
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="branding">
+          <img src="assets/logo.svg" alt="Smart Cab logo" class="logo" />
+          <span class="brand-name">Smart Cab</span>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#estimate">Fare Estimator</a>
+          <a href="#book">Book a Ride</a>
+          <a href="#tracker">Ride Tracker</a>
+          <a href="#auth">Login</a>
+          <a href="#about">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <h1>Smarter, safer, and faster rides</h1>
+            <p>Book a reliable cab in seconds. Transparent pricing, live tracking, and 24/7 support.</p>
+            <div class="hero-cta">
+              <a href="#book" class="btn btn-primary">Book a Ride</a>
+              <a href="#estimate" class="btn btn-outline">Estimate Fare</a>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="map-card">
+              <div class="pin pin-a"></div>
+              <div class="pin pin-b"></div>
+              <div class="route"></div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1517940310602-4bc62cfc3d91?auto=format&fit=crop&w=1400&q=80" alt="Passenger hailing a taxi in the city" class="hero-image" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <div class="container grid-3">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🚖</div>
+            <h3>Instant booking</h3>
+            <p>Request a cab instantly and get matched with the nearest verified driver.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🛡</div>
+            <h3>Safety first</h3>
+            <p>Share trips, SOS button, and driver ratings to keep you safe throughout the ride.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">💳</div>
+            <h3>Flexible payments</h3>
+            <p>Pay with cash, card, or wallet. Get digital receipts instantly.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" id="estimate">
+        <div class="container">
+          <h2>Fare Estimator</h2>
+          <form id="fare-form" class="card form-grid" novalidate>
+            <div class="form-field">
+              <label for="distanceKm">Distance (km)</label>
+              <input type="number" id="distanceKm" name="distanceKm" min="0" step="0.1" placeholder="e.g., 12.5" required />
+              <small class="hint">Approximate trip distance</small>
+            </div>
+            <div class="form-field">
+              <label for="carType">Car type</label>
+              <select id="carType" name="carType" required>
+                <option value="economy">Economy</option>
+                <option value="standard" selected>Standard</option>
+                <option value="premium">Premium</option>
+                <option value="suv">SUV</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="timeOfDay">Time of day</label>
+              <select id="timeOfDay" name="timeOfDay">
+                <option value="offpeak" selected>Off-peak</option>
+                <option value="peak">Peak</option>
+                <option value="late-night">Late night</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="checkbox">
+                <input type="checkbox" id="hasSurge" name="hasSurge" />
+                <span>High demand (surge)</span>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Estimate</button>
+              <button type="reset" class="btn btn-ghost">Reset</button>
+            </div>
+          </form>
+          <div id="fare-result" class="card result" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="book">
+        <div class="container">
+          <h2>Book a Ride</h2>
+          <form id="booking-form" class="card form-grid" novalidate>
+            <div class="form-field">
+              <label for="pickup">Pickup location</label>
+              <input type="text" id="pickup" name="pickup" placeholder="e.g., 221B Baker Street" required />
+            </div>
+            <div class="form-field">
+              <label for="dropoff">Drop-off location</label>
+              <input type="text" id="dropoff" name="dropoff" placeholder="e.g., Heathrow Airport" required />
+            </div>
+            <div class="form-field">
+              <label for="bookingDistance">Distance (km)</label>
+              <input type="number" id="bookingDistance" name="bookingDistance" min="0" step="0.1" placeholder="Optional (used for fare)" />
+            </div>
+            <div class="form-field">
+              <label for="rideTime">Ride time</label>
+              <input type="datetime-local" id="rideTime" name="rideTime" />
+              <small class="hint">Leave empty to request now</small>
+            </div>
+            <div class="form-field">
+              <label for="riderName">Your name</label>
+              <input type="text" id="riderName" name="riderName" placeholder="Full name" required />
+            </div>
+            <div class="form-field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="e.g., +44 7123 456789" required />
+            </div>
+            <div class="form-field">
+              <label for="carClass">Car type</label>
+              <select id="carClass" name="carClass" required>
+                <option value="economy">Economy</option>
+                <option value="standard" selected>Standard</option>
+                <option value="premium">Premium</option>
+                <option value="suv">SUV</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <button type="button" id="check-availability" class="btn btn-outline">Check Availability</button>
+              <small id="availability-result" class="hint"></small>
+            </div>
+            <div class="form-field">
+              <label for="notes">Notes (optional)</label>
+              <textarea id="notes" name="notes" rows="3" placeholder="Landmarks, instructions, etc."></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Request Ride</button>
+              <button type="reset" class="btn btn-ghost">Clear</button>
+            </div>
+          </form>
+          <div id="booking-result" class="card result" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="tracker">
+        <div class="container">
+          <h2>Ride Tracker</h2>
+          <div class="card tracker">
+            <div class="tracker-map" aria-hidden="true">
+              <div class="car"></div>
+              <div class="track"></div>
+            </div>
+            <div class="tracker-info">
+              <div class="status-line"><strong>Status:</strong> <span id="ride-status">No active ride</span></div>
+              <div class="status-line"><strong>Driver:</strong> <span id="driver-name">—</span></div>
+              <div class="status-line"><strong>ETA:</strong> <span id="eta">—</span></div>
+              <div class="tracker-actions">
+                <button id="simulate-progress" class="btn btn-outline">Simulate Progress</button>
+                <button id="end-ride" class="btn btn-danger">End Ride</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="auth">
+        <div class="container">
+          <h2>Login / Book Ride</h2>
+          <form id="auth-form" class="card form-grid" novalidate>
+            <div class="form-field">
+              <label for="authName">Name <span style="color:var(--danger)">*</span></label>
+              <input type="text" id="authName" placeholder="Enter your full name (alphabetic only)" required pattern="[A-Za-z\s]+" />
+              <small class="hint">Only letters and spaces allowed</small>
+            </div>
+            <div class="form-field">
+              <label for="authPhone">Phone Number <span style="color:var(--danger)">*</span></label>
+              <input type="tel" id="authPhone" placeholder="Enter 10-digit phone number" required pattern="[0-9]{10}" maxlength="10" />
+              <small class="hint">Must be exactly 10 digits</small>
+            </div>
+            <div class="form-field">
+              <label for="carTypeSelect">Car Type <span style="color:var(--danger)">*</span></label>
+              <select id="carTypeSelect" required>
+                <option value="">Select car type</option>
+                <option value="SUV">SUV</option>
+                <option value="Polo">Polo</option>
+                <option value="Thar">Thar</option>
+                <option value="Innova">Innova</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="pickupLocation">Pickup Location <span style="color:var(--danger)">*</span></label>
+              <input type="text" id="pickupLocation" placeholder="Enter pickup address" required />
+            </div>
+            <div class="form-field">
+              <label for="dropoffLocation">Drop-off Location <span style="color:var(--danger)">*</span></label>
+              <input type="text" id="dropoffLocation" placeholder="Enter drop-off address" required />
+            </div>
+            <div class="form-field">
+              <label for="rideDate">Ride Date <span style="color:var(--danger)">*</span></label>
+              <input type="date" id="rideDate" required />
+              <small class="hint">Select your preferred ride date</small>
+            </div>
+            <div class="form-field">
+              <label for="rideTime">Ride Time <span style="color:var(--danger)">*</span></label>
+              <input type="time" id="rideTime" required />
+              <small class="hint">Select your preferred ride time</small>
+            </div>
+            <div class="form-field">
+              <label for="rideNotes">Additional Notes (Optional)</label>
+              <textarea id="rideNotes" rows="3" placeholder="Any special instructions or requirements..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Book Ride</button>
+              <button type="reset" class="btn btn-ghost">Clear Form</button>
+            </div>
+          </form>
+          <div id="auth-status" class="card result" aria-live="polite"></div>
+          <div style="margin-top:10px">
+            <button id="open-whatsapp" class="btn btn-outline">Contact via WhatsApp</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- WhatsApp Contact Modal -->
+      <div id="whatsapp-modal" class="modal-backdrop" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="wa-title">
+          <h3 id="wa-title">Need help? Chat with us on WhatsApp</h3>
+          <p>Tap the button below to open WhatsApp. We’ll reply as soon as possible.</p>
+          <div class="modal-actions">
+            <a id="wa-link" class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/918669164040?text=Hello%20Smart%20Cab%20Support">Open WhatsApp</a>
+            <button id="close-whatsapp" class="btn btn-ghost">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="panel" id="customer">
+        <div class="container">
+          <h2>Customer Dashboard</h2>
+          <div class="card">
+            <h3>My Booking History</h3>
+            <div class="table-wrap">
+              <table class="table" id="customer-bookings-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>When</th>
+                    <th>From → To</th>
+                    <th>Car</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <h3>Give Feedback</h3>
+            <form id="feedback-form" class="form-grid" novalidate>
+              <div class="form-field">
+                <label for="feedbackBookingId">Booking ID</label>
+                <input type="text" id="feedbackBookingId" placeholder="e.g., ABC123" required />
+              </div>
+              <div class="form-field">
+                <label for="feedbackText">Feedback</label>
+                <textarea id="feedbackText" rows="3" placeholder="Enter your feedback here..."></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; 2024 Smart Cab Service. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="wa-widget">
+      <button class="wa-fab" id="wa-fab" aria-label="Open WhatsApp">
+        <svg viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </button>
+    </div>
+
+    <script>
+      // Form Validation and WhatsApp Functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const authForm = document.getElementById('auth-form');
+        const authName = document.getElementById('authName');
+        const authPhone = document.getElementById('authPhone');
+        const whatsappModal = document.getElementById('whatsapp-modal');
+        const openWhatsappBtn = document.getElementById('open-whatsapp');
+        const closeWhatsappBtn = document.getElementById('close-whatsapp');
+        const waFab = document.getElementById('wa-fab');
+        const waLink = document.getElementById('wa-link');
+        const authStatus = document.getElementById('auth-status');
+
+        // Name validation - alphabetic only
+        authName.addEventListener('input', function(e) {
+          const value = e.target.value;
+          // Remove any non-alphabetic characters (except spaces)
+          const cleaned = value.replace(/[^A-Za-z\s]/g, '');
+          if (value !== cleaned) {
+            e.target.value = cleaned;
+          }
+        });
+
+        // Phone validation - 10 digits only
+        authPhone.addEventListener('input', function(e) {
+          const value = e.target.value;
+          // Remove any non-numeric characters
+          const cleaned = value.replace(/\D/g, '').slice(0, 10);
+          if (value !== cleaned) {
+            e.target.value = cleaned;
+          }
+        });
+
+        // Form submission
+        authForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Get form values
+          const name = authName.value.trim();
+          const phone = authPhone.value.trim();
+          const carType = document.getElementById('carTypeSelect').value;
+          const pickup = document.getElementById('pickupLocation').value.trim();
+          const dropoff = document.getElementById('dropoffLocation').value.trim();
+          const rideDate = document.getElementById('rideDate').value;
+          const rideTime = document.getElementById('rideTime').value;
+          const notes = document.getElementById('rideNotes').value.trim();
+
+          // Validation
+          if (!name || !/^[A-Za-z\s]+$/.test(name)) {
+            showStatus('Please enter a valid name (alphabetic characters only).', 'error');
+            authName.focus();
+            return;
+          }
+
+          if (!phone || phone.length !== 10 || !/^\d{10}$/.test(phone)) {
+            showStatus('Please enter a valid 10-digit phone number.', 'error');
+            authPhone.focus();
+            return;
+          }
+
+          if (!carType) {
+            showStatus('Please select a car type.', 'error');
+            document.getElementById('carTypeSelect').focus();
+            return;
+          }
+
+          if (!pickup) {
+            showStatus('Please enter pickup location.', 'error');
+            document.getElementById('pickupLocation').focus();
+            return;
+          }
+
+          if (!dropoff) {
+            showStatus('Please enter drop-off location.', 'error');
+            document.getElementById('dropoffLocation').focus();
+            return;
+          }
+
+          if (!rideDate) {
+            showStatus('Please select a ride date.', 'error');
+            document.getElementById('rideDate').focus();
+            return;
+          }
+
+          if (!rideTime) {
+            showStatus('Please select a ride time.', 'error');
+            document.getElementById('rideTime').focus();
+            return;
+          }
+
+          // Format date and time
+          const dateObj = new Date(rideDate);
+          const formattedDate = dateObj.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          });
+
+          // Success message
+          const bookingDetails = `
+            <h3 style="margin-top:0;color:var(--primary)">✓ Booking Successful!</h3>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Car Type:</strong> ${carType}</p>
+            <p><strong>Pickup:</strong> ${pickup}</p>
+            <p><strong>Drop-off:</strong> ${dropoff}</p>
+            <p><strong>Date:</strong> ${formattedDate}</p>
+            <p><strong>Time:</strong> ${rideTime}</p>
+            ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ''}
+            <p style="margin-top:12px;color:var(--muted)">Your booking has been confirmed. We'll contact you soon!</p>
+          `;
+          
+          showStatus(bookingDetails, 'success');
+
+          // Prepare WhatsApp message
+          const whatsappMessage = `Hello! I want to book a ride.\n\n` +
+            `Name: ${name}\n` +
+            `Phone: ${phone}\n` +
+            `Car Type: ${carType}\n` +
+            `Pickup: ${pickup}\n` +
+            `Drop-off: ${dropoff}\n` +
+            `Date: ${formattedDate}\n` +
+            `Time: ${rideTime}\n` +
+            (notes ? `Notes: ${notes}` : '');
+          
+          // Update WhatsApp link
+          const encodedMessage = encodeURIComponent(whatsappMessage);
+          waLink.href = `https://wa.me/918669164040?text=${encodedMessage}`;
+
+          // Show WhatsApp popup after 2 seconds
+          setTimeout(() => {
+            whatsappModal.classList.add('show');
+            whatsappModal.setAttribute('aria-hidden', 'false');
+          }, 2000);
+        });
+
+        // WhatsApp modal functions
+        function openWhatsAppModal() {
+          const name = authName.value.trim() || 'Guest';
+          const phone = authPhone.value.trim() || '';
+          const carType = document.getElementById('carTypeSelect').value || 'Not selected';
+          const pickup = document.getElementById('pickupLocation').value.trim() || 'Not specified';
+          const dropoff = document.getElementById('dropoffLocation').value.trim() || 'Not specified';
+          const rideDate = document.getElementById('rideDate').value || 'Not selected';
+          const rideTime = document.getElementById('rideTime').value || 'Not selected';
+          const notes = document.getElementById('rideNotes').value.trim() || 'None';
+
+          const whatsappMessage = `Hello Smart Cab Support!\n\n` +
+            `I need assistance with my booking:\n\n` +
+            `Name: ${name}\n` +
+            `Phone: ${phone}\n` +
+            `Car Type: ${carType}\n` +
+            `Pickup: ${pickup}\n` +
+            `Drop-off: ${dropoff}\n` +
+            `Date: ${rideDate}\n` +
+            `Time: ${rideTime}\n` +
+            `Notes: ${notes}`;
+          
+          const encodedMessage = encodeURIComponent(whatsappMessage);
+          waLink.href = `https://wa.me/918669164040?text=${encodedMessage}`;
+          
+          whatsappModal.classList.add('show');
+          whatsappModal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeWhatsAppModal() {
+          whatsappModal.classList.remove('show');
+          whatsappModal.setAttribute('aria-hidden', 'true');
+        }
+
+        // Event listeners for WhatsApp
+        if (openWhatsappBtn) {
+          openWhatsappBtn.addEventListener('click', openWhatsAppModal);
+        }
+        
+        if (closeWhatsappBtn) {
+          closeWhatsappBtn.addEventListener('click', closeWhatsAppModal);
+        }
+
+        if (waFab) {
+          waFab.addEventListener('click', openWhatsAppModal);
+        }
+
+        // Close modal when clicking outside
+        whatsappModal.addEventListener('click', function(e) {
+          if (e.target === whatsappModal) {
+            closeWhatsAppModal();
+          }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && whatsappModal.classList.contains('show')) {
+            closeWhatsAppModal();
+          }
+        });
+
+        // Status message function
+        function showStatus(message, type) {
+          authStatus.innerHTML = message;
+          authStatus.style.display = 'block';
+          authStatus.style.padding = '18px';
+          
+          if (type === 'error') {
+            authStatus.style.borderLeft = '4px solid var(--danger)';
+            authStatus.style.background = 'rgba(239, 68, 68, 0.1)';
+          } else if (type === 'success') {
+            authStatus.style.borderLeft = '4px solid var(--primary)';
+            authStatus.style.background = 'rgba(34, 211, 238, 0.1)';
+          }
+          
+          // Scroll to status
+          authStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Set minimum date to today
+        const rideDateInput = document.getElementById('rideDate');
+        if (rideDateInput) {
+          const today = new Date().toISOString().split('T')[0];
+          rideDateInput.setAttribute('min', today);
+        }
+      });
+      
+    </script>
+  </body>
+</html>

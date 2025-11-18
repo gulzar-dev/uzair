@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Contacts - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; color: #2d3748; font-weight: 500; margin-bottom: 8px; }
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+        }
+        input:focus { outline: none; border-color: #667eea; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .contact-item {
+            padding: 15px;
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+        .contact-item h3 { color: #2d3748; font-size: 16px; margin-bottom: 5px; }
+        .contact-item p { color: #718096; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Emergency Contacts</h1>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>Contact Name</label>
+                    <input type="text" id="contactName" placeholder="e.g., John Doe" required />
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="contactPhone" placeholder="10-digit number" maxlength="10" required />
+                </div>
+                <div class="form-group">
+                    <label>Relationship</label>
+                    <input type="text" id="relationship" placeholder="e.g., Family, Friend" />
+                </div>
+                <button type="submit" class="btn">Add Emergency Contact</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2 style="margin-bottom: 15px; font-size: 20px;">Saved Contacts</h2>
+            <div id="contactsList"></div>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+        
+        let contacts = JSON.parse(localStorage.getItem('emergencyContacts') || '[]');
+        
+        function renderContacts() {
+            const list = document.getElementById('contactsList');
+            if (contacts.length === 0) {
+                list.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No emergency contacts saved</p>';
+                return;
+            }
+            list.innerHTML = contacts.map((contact, index) => `
+                <div class="contact-item">
+                    <h3>${contact.name}</h3>
+                    <p>${contact.phone} ${contact.relationship ? '• ' + contact.relationship : ''}</p>
+                    <button onclick="deleteContact(${index})" style="margin-top: 10px; background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;">Delete</button>
+                </div>
+            `).join('');
+        }
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            contacts.push({
+                name: document.getElementById('contactName').value,
+                phone: document.getElementById('contactPhone').value,
+                relationship: document.getElementById('relationship').value
+            });
+            localStorage.setItem('emergencyContacts', JSON.stringify(contacts));
+            document.getElementById('contactForm').reset();
+            renderContacts();
+        });
+        
+        function deleteContact(index) {
+            contacts.splice(index, 1);
+            localStorage.setItem('emergencyContacts', JSON.stringify(contacts));
+            renderContacts();
+        }
+        
+        renderContacts();
+    </script>
+</body>
+</html>
+

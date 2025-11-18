@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety and Privacy - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .safety-item {
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .safety-item h3 { color: #2d3748; font-size: 18px; margin-bottom: 10px; }
+        .safety-item p { color: #718096; font-size: 14px; line-height: 1.6; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Safety and Privacy</h1>
+            <div class="safety-item">
+                <h3>🛡️ SOS Emergency</h3>
+                <p>Press and hold the SOS button during your ride to immediately contact emergency services and share your location.</p>
+            </div>
+            <div class="safety-item">
+                <h3>👤 Share Ride Details</h3>
+                <p>Share your live ride details with trusted contacts so they can track your journey in real-time.</p>
+            </div>
+            <div class="safety-item">
+                <h3>🚨 Emergency Contacts</h3>
+                <p>Add emergency contacts who will be notified automatically in case of any emergency during your ride.</p>
+            </div>
+            <div class="safety-item">
+                <h3>🔒 Privacy Settings</h3>
+                <p>Control what information is shared and manage your privacy preferences.</p>
+            </div>
+            <div class="safety-item">
+                <h3>✅ Verified Drivers</h3>
+                <p>All our drivers are verified, licensed, and undergo regular background checks for your safety.</p>
+            </div>
+            <button class="btn" onclick="window.location.href='emergency-contacts.html'">Manage Emergency Contacts</button>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+    </script>
+</body>
+</html>
+

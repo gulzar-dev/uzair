@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ola Money / Wallet - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .balance-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .balance-card h2 { font-size: 14px; opacity: 0.9; margin-bottom: 10px; }
+        .balance-card .amount { font-size: 42px; font-weight: 700; margin-bottom: 15px; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .transaction-item {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .transaction-item:last-child { border-bottom: none; }
+        .transaction-info h3 { color: #2d3748; font-size: 15px; margin-bottom: 3px; }
+        .transaction-info p { color: #718096; font-size: 12px; }
+        .amount-positive { color: #10b981; font-weight: 600; }
+        .amount-negative { color: #ef4444; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Ola Money / Wallet</h1>
+            <div class="balance-card">
+                <h2>Wallet Balance</h2>
+                <div class="amount">₹<span id="walletBalance">500.00</span></div>
+                <button class="btn" onclick="addMoney()">Add Money</button>
+            </div>
+            <h2 style="margin-bottom: 15px; font-size: 20px; color: #2d3748;">Recent Transactions</h2>
+            <div id="transactionsList">
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <h3>Ride Payment</h3>
+                        <p>Today, 2:30 PM</p>
+                    </div>
+                    <div class="amount-negative">-₹250.00</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <h3>Money Added</h3>
+                        <p>Yesterday, 5:15 PM</p>
+                    </div>
+                    <div class="amount-positive">+₹500.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+        
+        function addMoney() {
+            const amount = prompt('Enter amount to add:');
+            if (amount && !isNaN(amount) && amount > 0) {
+                const current = parseFloat(document.getElementById('walletBalance').textContent);
+                document.getElementById('walletBalance').textContent = (current + parseFloat(amount)).toFixed(2);
+                alert(`₹${amount} added to wallet successfully!`);
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,3895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Ride - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #7e22ce 50%, #a855f7 75%, #ec4899 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Animated background elements */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            filter: blur(100px);
+            animation: float 25s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        body::before {
+            top: -300px;
+            left: -300px;
+        }
+
+        body::after {
+            bottom: -300px;
+            right: -300px;
+            animation-delay: 12s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(100px, 100px) scale(1.2) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-80px, 150px) scale(0.9) rotate(240deg);
+            }
+        }
+
+        /* Animated particles background */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            animation: particleFloat 25s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            left: 5%;
+            top: 15%;
+            animation-delay: 0s;
+            animation-duration: 30s;
+        }
+
+        .particle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            left: 85%;
+            top: 55%;
+            animation-delay: 6s;
+            animation-duration: 35s;
+        }
+
+        .particle:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            left: 45%;
+            top: 85%;
+            animation-delay: 12s;
+            animation-duration: 28s;
+        }
+
+        .particle:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            left: 15%;
+            top: 45%;
+            animation-delay: 18s;
+            animation-duration: 32s;
+        }
+
+        .particle:nth-child(5) {
+            width: 90px;
+            height: 90px;
+            left: 75%;
+            top: 5%;
+            animation-delay: 9s;
+            animation-duration: 26s;
+        }
+
+        .particle:nth-child(6) {
+            width: 110px;
+            height: 110px;
+            left: 35%;
+            top: 25%;
+            animation-delay: 15s;
+            animation-duration: 30s;
+        }
+
+        .particle:nth-child(7) {
+            width: 95px;
+            height: 95px;
+            left: 65%;
+            top: 70%;
+            animation-delay: 3s;
+            animation-duration: 27s;
+        }
+
+        @keyframes particleFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                opacity: 0.25;
+            }
+
+            25% {
+                transform: translate(120px, -180px) scale(1.3) rotate(90deg);
+                opacity: 0.45;
+            }
+
+            50% {
+                transform: translate(-100px, 120px) scale(0.7) rotate(180deg);
+                opacity: 0.35;
+            }
+
+            75% {
+                transform: translate(180px, 60px) scale(1.15) rotate(270deg);
+                opacity: 0.55;
+            }
+        }
+
+        /* Animated geometric shapes */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.12;
+            animation: shapeRotate 35s infinite linear;
+        }
+
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 104px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .shape-square {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(45deg);
+        }
+
+        .shape-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.35);
+        }
+
+        .shape-hexagon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 8%;
+            animation-duration: 30s;
+        }
+
+        .shape:nth-child(2) {
+            top: 65%;
+            right: 12%;
+            animation-duration: 40s;
+            animation-direction: reverse;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 15%;
+            left: 15%;
+            animation-duration: 35s;
+        }
+
+        .shape:nth-child(4) {
+            top: 35%;
+            right: 25%;
+            animation-duration: 45s;
+            animation-direction: reverse;
+        }
+
+        .shape:nth-child(5) {
+            top: 50%;
+            left: 50%;
+            animation-duration: 38s;
+        }
+
+        @keyframes shapeRotate {
+            0% {
+                transform: rotate(0deg) translate(0, 0);
+            }
+
+            50% {
+                transform: rotate(180deg) translate(60px, 60px);
+            }
+
+            100% {
+                transform: rotate(360deg) translate(0, 0);
+            }
+        }
+
+        /* Animated grid pattern */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 25s linear infinite;
+            opacity: 0.25;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(60px, 60px);
+            }
+        }
+
+        /* Floating dots */
+        .bg-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+            animation: dotFloat 18s infinite ease-in-out;
+        }
+
+        .dot:nth-child(1) {
+            left: 12%;
+            top: 20%;
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            left: 88%;
+            top: 40%;
+            animation-delay: 2.5s;
+        }
+
+        .dot:nth-child(3) {
+            left: 50%;
+            top: 80%;
+            animation-delay: 5s;
+        }
+
+        .dot:nth-child(4) {
+            left: 20%;
+            top: 60%;
+            animation-delay: 7.5s;
+        }
+
+        .dot:nth-child(5) {
+            left: 80%;
+            top: 10%;
+            animation-delay: 10s;
+        }
+
+        .dot:nth-child(6) {
+            left: 40%;
+            top: 30%;
+            animation-delay: 12.5s;
+        }
+
+        .dot:nth-child(7) {
+            left: 95%;
+            top: 75%;
+            animation-delay: 15s;
+        }
+
+        .dot:nth-child(8) {
+            left: 5%;
+            top: 50%;
+            animation-delay: 17.5s;
+        }
+
+        .dot:nth-child(9) {
+            left: 65%;
+            top: 15%;
+            animation-delay: 20s;
+        }
+
+        .dot:nth-child(10) {
+            left: 30%;
+            top: 90%;
+            animation-delay: 22.5s;
+        }
+
+        @keyframes dotFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.35;
+            }
+
+            50% {
+                transform: translate(40px, -50px) scale(1.6);
+                opacity: 0.7;
+            }
+        }
+
+        /* Glowing orb effect */
+        .glow-orb {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            filter: blur(80px);
+            animation: orbGlow 10s ease-in-out infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .glow-orb:nth-child(1) {
+            top: 15%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .glow-orb:nth-child(2) {
+            bottom: 15%;
+            right: 5%;
+            animation-delay: 5s;
+        }
+
+        .glow-orb:nth-child(3) {
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            margin-top: -200px;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes orbGlow {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: scale(1.4);
+                opacity: 0.7;
+            }
+        }
+
+        /* Animated wave effect */
+        .bg-waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: waveMove 15s infinite ease-in-out;
+        }
+
+        .wave:nth-child(1) {
+            bottom: -50px;
+            left: -50%;
+            animation-duration: 15s;
+        }
+
+        .wave:nth-child(2) {
+            bottom: -80px;
+            left: -50%;
+            animation-duration: 20s;
+            animation-delay: 5s;
+        }
+
+        @keyframes waveMove {
+
+            0%,
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+
+            50% {
+                transform: translateX(25%) translateY(-20px);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Sparkle effect */
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: sparkle 3s infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .sparkle:nth-child(1) {
+            top: 20%;
+            left: 30%;
+            animation-delay: 0s;
+        }
+
+        .sparkle:nth-child(2) {
+            top: 60%;
+            left: 70%;
+            animation-delay: 1s;
+        }
+
+        .sparkle:nth-child(3) {
+            top: 80%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .sparkle:nth-child(4) {
+            top: 40%;
+            left: 80%;
+            animation-delay: 0.5s;
+        }
+
+        .sparkle:nth-child(5) {
+            top: 10%;
+            left: 60%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 100;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .booking-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideUp 0.6s ease-out 0.2s both;
+        }
+
+        .nearby-locations-panel {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 45px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .nearby-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .nearby-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nearby-header h3 {
+            font-size: 20px;
+            color: #1a202c;
+            margin: 0;
+        }
+
+        .live-location-status {
+            font-size: 12px;
+            color: #4a5568;
+            background: rgba(102, 126, 234, 0.12);
+            padding: 6px 12px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-location-status span {
+            display: inline-flex;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #48bb78;
+            box-shadow: 0 0 8px rgba(72, 187, 120, 0.8);
+        }
+
+        .nearby-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .nearby-card {
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 16px;
+            padding: 16px;
+            background: linear-gradient(145deg, rgba(247, 250, 252, 0.9), rgba(255, 255, 255, 0.9));
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .nearby-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .nearby-card strong {
+            display: block;
+            color: #1a202c;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .nearby-card small {
+            display: block;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .nearby-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .nearby-badge {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(102, 126, 234, 0.12);
+            color: #4c51bf;
+        }
+
+        .nearby-distance {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(72, 187, 120, 0.12);
+            color: #2f855a;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            font-size: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            color: #2d3748;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #fff;
+            color: #2d3748;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .user-info-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .user-info-display p {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        .user-info-display strong {
+            font-weight: 600;
+        }
+
+        .car-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .car-options::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .car-options::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .car-options::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .car-options::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        .car-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .car-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .car-option label {
+            display: block;
+            padding: 15px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .car-option input[type="radio"]:checked+label {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .car-option .car-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .car-option .car-name {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 13px;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .safety-info {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .safety-info h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .safety-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .safety-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .safety-list li::before {
+            content: '✓';
+            background: rgba(255, 255, 255, 0.3);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #2d3748;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .whatsapp-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7);
+            }
+        }
+
+        /* Ride Tracking Section - Modern Design */
+        .ride-tracking {
+            position: relative;
+            background: #f5f5f5;
+            border-radius: 24px;
+            margin-top: 30px;
+            display: none;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .ride-tracking.active {
+            display: block;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .tracking-map-container {
+            position: relative;
+            height: 400px;
+            background: #e8e8e8;
+            background-image:
+                linear-gradient(rgba(200, 200, 200, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200, 200, 200, 0.3) 1px, transparent 1px);
+            background-size: 40px 40px;
+            overflow: hidden;
+        }
+
+        .tracking-map-container::before {
+            content: 'Google';
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .driver-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            z-index: 10;
+            animation: driverMove 3s ease-in-out infinite;
+        }
+
+        .driver-icon {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .driver-icon::before {
+            content: '🏍️';
+            font-size: 40px;
+        }
+
+        .driver-icon::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 12px solid #ff6b35;
+        }
+
+        @keyframes driverMove {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) translateX(0);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) translateX(30px);
+            }
+        }
+
+        .tracking-info-card {
+            background: white;
+            border-radius: 24px 24px 0 0;
+            padding: 25px;
+            margin-top: -20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .status-check {
+            width: 20px;
+            height: 20px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-text {
+            color: #10b981;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .main-status {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .driver-info {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .tracking-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 20px;
+        }
+
+        .eta-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 16px;
+            text-align: center;
+            min-width: 80px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .eta-number {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .eta-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .delivery-instructions {
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        .instructions-label {
+            color: #1f2937;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .instructions-label::after {
+            content: '>';
+            margin-left: auto;
+        }
+
+        .instructions-text {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .contact-driver-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-driver-btn:hover {
+            background: #e5e7eb;
+            transform: scale(1.05);
+        }
+
+        .contact-driver-btn .phone-icon {
+            font-size: 20px;
+            color: #1f2937;
+        }
+
+        .driver-avatar {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .route-line {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: repeating-linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.5) 0px,
+                    rgba(255, 255, 255, 0.5) 10px,
+                    transparent 10px,
+                    transparent 20px);
+            transform: translateY(-50%);
+        }
+
+        .car-marker {
+            position: absolute;
+            top: calc(50% - 15px);
+            left: 10%;
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: moveCar 8s linear infinite;
+        }
+
+        .car-marker::after {
+            content: '🚗';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            font-size: 18px;
+        }
+
+        @keyframes moveCar {
+            0% {
+                left: 10%;
+            }
+
+            50% {
+                left: 60%;
+            }
+
+            100% {
+                left: 10%;
+            }
+        }
+
+        .pickup-pin,
+        .dropoff-pin {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .pickup-pin {
+            background: #22d3ee;
+            top: calc(50% - 10px);
+            left: 10%;
+        }
+
+        .dropoff-pin {
+            background: #a78bfa;
+            top: calc(50% - 10px);
+            right: 10%;
+        }
+
+        .tracking-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .tracking-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .tracking-item label {
+            display: block;
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .tracking-item value {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Ride Details Display */
+        .ride-details-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .ride-details-card.active {
+            display: block;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .ride-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .detail-item label {
+            display: block;
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-item value {
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Enhanced Phone Display */
+        .phone-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .phone-display .phone-icon {
+            font-size: 20px;
+        }
+
+        .phone-display .phone-number {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .phone-display .whatsapp-link {
+            margin-left: auto;
+            padding: 6px 12px;
+            background: #25D366;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .phone-display .whatsapp-link:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+        }
+
+        /* Tracking Search Section */
+        .tracking-search-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 30px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .search-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .search-header p {
+            color: #718096;
+            font-size: 15px;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .search-input-group {
+            position: relative;
+        }
+
+        .search-input-group label {
+            display: block;
+            color: #2d3748;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .search-input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            padding-left: 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #fff;
+            color: #2d3748;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .search-input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-input-group .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 42px;
+            font-size: 20px;
+            color: #718096;
+        }
+
+        .search-btn {
+            align-self: flex-end;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            height: fit-content;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
+        }
+
+        .search-results {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            color: white;
+        }
+
+        .search-results.active {
+            display: block;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .search-results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-results-header h3 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .no-results-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .tracking-result-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .tracking-result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tracking-result-header h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .tracking-badge {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .tracking-result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .tracking-result-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .tracking-result-item label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .tracking-result-item value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .tracking-result-map {
+            position: relative;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        /* Progress Bar/Tracking Indicator */
+        .progress-track-container {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .progress-track {
+            position: relative;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            border-top: 2px dashed rgba(255, 255, 255, 0.3);
+            margin: 20px 0;
+        }
+
+        .progress-indicator {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #8b5cf6 100%);
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.8), 0 0 40px rgba(139, 92, 246, 0.6);
+            animation: moveBackAndForth 3s ease-in-out infinite, pulseGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes moveBackAndForth {
+            0% {
+                left: 10%;
+            }
+
+            50% {
+                left: 90%;
+            }
+
+            100% {
+                left: 10%;
+            }
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(167, 139, 250, 0.8), 0 0 40px rgba(139, 92, 246, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(167, 139, 250, 1), 0 0 60px rgba(139, 92, 246, 0.8);
+            }
+        }
+
+        /* Booking History Section */
+        .booking-history-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 30px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .section-title-main {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .booking-table-container {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+
+        .booking-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .booking-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .booking-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .booking-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        .history-route {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .history-route strong {
+            color: #1f2933;
+            font-weight: 600;
+        }
+
+        .history-route span {
+            color: #805ad5;
+            font-weight: 600;
+        }
+
+        .history-meta {
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .ride-detail-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .ride-detail-modal.show {
+            display: flex;
+        }
+
+        .ride-detail-content {
+            background: #fff;
+            border-radius: 24px;
+            max-width: 700px;
+            width: 100%;
+            padding: 35px;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.35);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #4a5568;
+        }
+
+        .ride-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .ride-detail-card {
+            background: rgba(247, 250, 252, 0.9);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .ride-detail-card label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.6px;
+            color: #718096;
+            margin-bottom: 6px;
+        }
+
+        .ride-detail-card strong {
+            font-size: 16px;
+            color: #1a202c;
+        }
+
+        .history-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .history-stat-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .history-stat-card span {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #4c51bf;
+            margin-bottom: 4px;
+        }
+
+        .history-stat-card strong {
+            font-size: 20px;
+            color: #2d3748;
+        }
+
+        .booking-table tbody tr {
+            transition: background 0.3s ease;
+        }
+
+        .booking-table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .booking-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(34, 211, 238, 0.2);
+            color: #0891b2;
+        }
+
+        .status-completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: #059669;
+        }
+
+        .status-pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: #d97706;
+        }
+
+        .status-cancelled {
+            background: rgba(239, 68, 68, 0.2);
+            color: #dc2626;
+        }
+
+        .history-action-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .history-action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.25);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 30px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .feedback-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .feedback-form .form-group {
+            margin-bottom: 0;
+        }
+
+        .feedback-form label {
+            display: block;
+            color: #2d3748;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #fff;
+            color: #2d3748;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .feedback-form input:focus,
+        .feedback-form textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .feedback-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-feedback-btn {
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #22d3ee 0%, #0891b2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.4);
+            width: fit-content;
+        }
+
+        .submit-feedback-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 211, 238, 0.5);
+        }
+
+        .feedback-success {
+            display: none;
+            padding: 15px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .feedback-success.show {
+            display: block;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .booking-card {
+                padding: 25px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .whatsapp-float svg {
+                width: 26px;
+                height: 26px;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .search-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .tracking-search-section {
+                padding: 25px 20px;
+            }
+
+            .booking-history-section,
+            .feedback-section {
+                padding: 25px 20px;
+            }
+
+            .booking-table-container {
+                overflow-x: scroll;
+            }
+
+            .booking-table {
+                min-width: 600px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Enhanced Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <div class="bg-shapes">
+        <div class="shape shape-triangle"></div>
+        <div class="shape shape-square"></div>
+        <div class="shape shape-circle"></div>
+        <div class="shape shape-hexagon"></div>
+        <div class="shape shape-triangle"></div>
+    </div>
+    <div class="bg-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    <div class="glow-orb"></div>
+    <div class="glow-orb"></div>
+    <div class="glow-orb"></div>
+    <div class="bg-waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+
+    <button onclick="history.back()" class="back-btn">← Back</button>
+    <a href="profile.html" class="back-btn" style="right: 20px; left: auto; position: fixed; top: 20px;">👤 Profile</a>
+
+    <div class="container">
+        <div class="header">
+            <h1>🚖 Book Your Ride</h1>
+            <p>Fill in the details to complete your booking</p>
+        </div>
+
+        <div class="booking-card">
+            <!-- User Info Display -->
+            <div class="user-info-display" id="userInfoDisplay">
+                <p><strong>Name:</strong> <span id="displayName">-</span></p>
+                <div class="phone-display">
+                    <span class="phone-icon">📱</span>
+                    <span class="phone-number" id="displayPhone">-</span>
+                    <a href="#" class="whatsapp-link" id="phoneWhatsappLink" target="_blank">
+                        <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor"
+                            style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                        </svg>
+                        Chat Now
+                    </a>
+                </div>
+            </div>
+
+            <form id="bookingForm">
+                <!-- Ride Details Section -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <span class="section-icon">📍</span>
+                        Ride Details
+                    </h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="pickupLocation">Pickup Location <span style="color: #f56565">*</span></label>
+                            <select id="pickupLocation" name="pickupLocation" required>
+                                <option value="" disabled selected>Select pickup location</option>
+                                <option value="Mumbai Central">Mumbai Central</option>
+                                <option value="Andheri West">Andheri West</option>
+                                <option value="Bandra Station">Bandra Station</option>
+                                <option value="Powai">Powai</option>
+                                <option value="Navi Mumbai">Navi Mumbai</option>
+                                <option value="Dadar">Dadar</option>
+                                <option value="Thane Station">Thane Station</option>
+                                <option value="Chhatrapati Shivaji Airport">Chhatrapati Shivaji Airport</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="dropoffLocation">Drop-off Location <span style="color: #f56565">*</span></label>
+                            <select id="dropoffLocation" name="dropoffLocation" required>
+                                <option value="" disabled selected>Select drop-off location</option>
+                                <option value="Bandra Terminus">Bandra Terminus</option>
+                                <option value="Andheri East">Andheri East</option>
+                                <option value="Marine Drive">Marine Drive</option>
+                                <option value="Colaba">Colaba</option>
+                                <option value="Goregaon West">Goregaon West</option>
+                                <option value="Vashi">Vashi</option>
+                                <option value="Thane Station">Thane Station</option>
+                                <option value="Mumbai Airport T2">Mumbai Airport T2</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rideDate">Ride Date <span style="color: #f56565">*</span></label>
+                            <input type="date" id="rideDate" name="rideDate" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rideTime">Ride Time <span style="color: #f56565">*</span></label>
+                            <input type="time" id="rideTime" name="rideTime" required />
+                        </div>
+                    </div>
+
+
+                    <!-- Car Selection Section -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🚗</span>
+                            Select Your Car
+                        </h2>
+                        <div class="car-options">
+                            <!-- Economy/Standard Cars -->
+                            <div class="car-option">
+                                <input type="radio" id="carDzire" name="carType" value="Maruti Suzuki Dzire" required />
+                                <label for="carDzire">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Maruti Suzuki Dzire</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carEtios" name="carType" value="Toyota Etios" required />
+                                <label for="carEtios">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Toyota Etios</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carXcent" name="carType" value="Hyundai Xcent" required />
+                                <label for="carXcent">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Hyundai Xcent</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carErtiga" name="carType" value="Maruti Suzuki Ertiga"
+                                    required />
+                                <label for="carErtiga">
+                                    <div class="car-icon">🚐</div>
+                                    <div class="car-name">Maruti Suzuki Ertiga</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carInnovaCrysta" name="carType" value="Toyota Innova Crysta"
+                                    required />
+                                <label for="carInnovaCrysta">
+                                    <div class="car-icon">🚐</div>
+                                    <div class="car-name">Toyota Innova Crysta</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carWagonR" name="carType" value="Maruti Suzuki Wagon R"
+                                    required />
+                                <label for="carWagonR">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Maruti Suzuki Wagon R</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carGrandi10" name="carType" value="Hyundai Grand i10"
+                                    required />
+                                <label for="carGrandi10">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Hyundai Grand i10</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carAura" name="carType" value="Hyundai Aura" required />
+                                <label for="carAura">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Hyundai Aura</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carAmaze" name="carType" value="Honda Amaze" required />
+                                <label for="carAmaze">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Honda Amaze</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carBolero" name="carType" value="Mahindra Bolero" required />
+                                <label for="carBolero">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Mahindra Bolero</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carCiaz" name="carType" value="Maruti Suzuki Ciaz" required />
+                                <label for="carCiaz">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Maruti Suzuki Ciaz</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carIndigo" name="carType" value="Tata Indigo" required />
+                                <label for="carIndigo">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Tata Indigo</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carZest" name="carType" value="Tata Zest" required />
+                                <label for="carZest">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Tata Zest</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carXylo" name="carType" value="Mahindra Xylo" required />
+                                <label for="carXylo">
+                                    <div class="car-icon">🚐</div>
+                                    <div class="car-name">Mahindra Xylo</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carTriber" name="carType" value="Renault Triber" required />
+                                <label for="carTriber">
+                                    <div class="car-icon">🚐</div>
+                                    <div class="car-name">Renault Triber</div>
+                                </label>
+                            </div>
+                            <!-- Premium/Luxury Cars -->
+                            <div class="car-option">
+                                <input type="radio" id="carMercedesE" name="carType" value="Mercedes-Benz E-Class"
+                                    required />
+                                <label for="carMercedesE">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Mercedes-Benz E-Class</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carBMW5" name="carType" value="BMW 5 Series" required />
+                                <label for="carBMW5">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">BMW 5 Series</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carAudiA6" name="carType" value="Audi A6" required />
+                                <label for="carAudiA6">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Audi A6</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carJaguarXF" name="carType" value="Jaguar XF" required />
+                                <label for="carJaguarXF">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Jaguar XF</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carVolvoS90" name="carType" value="Volvo S90" required />
+                                <label for="carVolvoS90">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Volvo S90</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carLexusES" name="carType" value="Lexus ES" required />
+                                <label for="carLexusES">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Lexus ES</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carMercedesC" name="carType" value="Mercedes-Benz C-Class"
+                                    required />
+                                <label for="carMercedesC">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Mercedes-Benz C-Class</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carBMW7" name="carType" value="BMW 7 Series" required />
+                                <label for="carBMW7">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">BMW 7 Series</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carAudiA8" name="carType" value="Audi A8" required />
+                                <label for="carAudiA8">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Audi A8</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carRangeRover" name="carType" value="Range Rover Vogue"
+                                    required />
+                                <label for="carRangeRover">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Range Rover Vogue</div>
+                                </label>
+                            </div>
+                            <!-- SUV/Premium Sedan -->
+                            <div class="car-option">
+                                <input type="radio" id="carCamry" name="carType" value="Toyota Camry" required />
+                                <label for="carCamry">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Toyota Camry</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carCivic" name="carType" value="Honda Civic" required />
+                                <label for="carCivic">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Honda Civic</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carSuperb" name="carType" value="Skoda Superb" required />
+                                <label for="carSuperb">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Skoda Superb</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carTucson" name="carType" value="Hyundai Tucson" required />
+                                <label for="carTucson">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Hyundai Tucson</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carHector" name="carType" value="MG Hector" required />
+                                <label for="carHector">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">MG Hector</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carHarrier" name="carType" value="Tata Harrier" required />
+                                <label for="carHarrier">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Tata Harrier</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carCompass" name="carType" value="Jeep Compass" required />
+                                <label for="carCompass">
+                                    <div class="car-icon">🚙</div>
+                                    <div class="car-name">Jeep Compass</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carElantra" name="carType" value="Hyundai Elantra" required />
+                                <label for="carElantra">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Hyundai Elantra</div>
+                                </label>
+                            </div>
+                            <div class="car-option">
+                                <input type="radio" id="carPassat" name="carType" value="Volkswagen Passat" required />
+                                <label for="carPassat">
+                                    <div class="car-icon">🚗</div>
+                                    <div class="car-name">Volkswagen Passat</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">📝</span>
+                            Additional Information
+                        </h2>
+                        <div class="form-group full-width">
+                            <label for="additionalNotes">Special Instructions (Optional)</label>
+                            <textarea id="additionalNotes" name="additionalNotes"
+                                placeholder="Any special requirements, landmarks, or instructions..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Safety Information -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🛡️</span>
+                            Safety & Security
+                        </h2>
+                        <div class="safety-info">
+                            <h3>Your Safety is Our Priority</h3>
+                            <ul class="safety-list">
+                                <li>Verified & Licensed Drivers</li>
+                                <li>24/7 Customer Support</li>
+                                <li>Real-time Ride Tracking</li>
+                                <li>Emergency SOS Button</li>
+                                <li>Share Ride Details with Family</li>
+                                <li>Regular Vehicle Sanitization</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button type="submit" class="btn btn-primary">
+                            <span>✓</span>
+                            Confirm Booking
+                        </button>
+                        <button type="button" class="btn btn-whatsapp" id="whatsappBtn">
+                            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                            </svg>
+                            Contact via WhatsApp
+                        </button>
+                        <button type="reset" class="btn btn-secondary">Clear Form</button>
+                    </div>
+
+                    <!-- Success Message -->
+                    <div class="success-message" id="successMessage">
+                        <h3 style="margin-bottom: 10px; font-size: 24px;">🎉 Booking Confirmed!</h3>
+                        <p>Your ride has been successfully booked. We'll contact you shortly!</p>
+                    </div>
+            </form>
+
+            <!-- Nearby Locations -->
+            <div class="nearby-locations-panel">
+                <div class="nearby-column">
+                    <div class="nearby-header">
+                        <h3>Nearby Pickup Spots</h3>
+                        <div class="live-location-status" id="pickupLiveStatus">
+                            <span></span>
+                            Detecting live location...
+                        </div>
+                    </div>
+                    <div class="nearby-list" id="nearbyPickupList"></div>
+                </div>
+                <div class="nearby-column">
+                    <div class="nearby-header">
+                        <h3>Popular Drop-off Areas</h3>
+                        <div class="live-location-status" id="dropoffLiveStatus">
+                            <span></span>
+                            Syncing live location...
+                        </div>
+                    </div>
+                    <div class="nearby-list" id="nearbyDropoffList"></div>
+                </div>
+            </div>
+
+            <!-- Ride Details Card -->
+            <div class="ride-details-card" id="rideDetailsCard">
+                <h2 style="margin-top: 0; margin-bottom: 10px;">📋 Ride Details</h2>
+                <p style="opacity: 0.9; margin-bottom: 20px;">Complete booking information</p>
+                <div class="ride-details-grid" id="rideDetailsGrid">
+                    <!-- Details will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Tracking Search Section -->
+            <div class="tracking-search-section">
+                <div class="search-header">
+                    <h2>🔍 Track Your Ride</h2>
+                    <p>Enter your pickup and drop-off locations to find your booking</p>
+                </div>
+                <div class="search-form">
+                    <div class="search-input-group">
+                        <label for="searchPickup">Pickup Location <span style="color: #f56565">*</span></label>
+                        <span class="input-icon">📍</span>
+                        <input type="text" id="searchPickup" placeholder="Enter pickup location" autocomplete="off" />
+                    </div>
+                    <div class="search-input-group">
+                        <label for="searchDropoff">Drop-off Location <span style="color: #f56565">*</span></label>
+                        <span class="input-icon">🎯</span>
+                        <input type="text" id="searchDropoff" placeholder="Enter drop-off location"
+                            autocomplete="off" />
+                    </div>
+                    <button type="button" class="search-btn" id="searchRideBtn">
+                        <span>🔍</span>
+                        Search
+                    </button>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <div class="search-results-header">
+                        <h3>📋 Tracking Details</h3>
+                        <span class="tracking-badge" id="resultStatus">Active</span>
+                    </div>
+                    <div id="searchResultsContent">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ride Tracking Section -->
+            <div class="ride-tracking" id="rideTracking">
+                <div class="tracking-map-container">
+                    <div class="driver-marker">
+                        <div class="driver-icon"></div>
+                    </div>
+                </div>
+                <div class="tracking-info-card">
+                    <div class="status-indicator">
+                        <div class="status-check">✓</div>
+                        <span class="status-text" id="statusText">ON TIME</span>
+                    </div>
+                    <div class="main-status" id="mainStatus">Picking your order now</div>
+                    <div class="driver-info" id="driverInfo">
+                        <span id="driverName">SAGAR RAJU PANDHARE</span> is at the restaurant, and is about to pick your
+                        ride.
+                    </div>
+                    <div class="tracking-card-footer">
+                        <div class="delivery-instructions">
+                            <div class="instructions-label">Add Delivery Instructions</div>
+                            <div class="instructions-text" id="instructionsText">Knock the door</div>
+                        </div>
+                        <div class="eta-box">
+                            <div class="eta-number" id="etaNumber">8</div>
+                            <div class="eta-label">mins</div>
+                        </div>
+                        <button class="contact-driver-btn" id="contactDriverBtn" title="Contact Driver">
+                            <span class="phone-icon">📞</span>
+                            <div class="driver-avatar">🚗</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Track Indicator -->
+            <div class="progress-track-container">
+                <div class="progress-track">
+                    <div class="progress-indicator" id="progressIndicator"></div>
+                </div>
+            </div>
+
+            <!-- Booking History Section -->
+            <div class="booking-history-section">
+                <h2 class="section-title-main">My Booking History</h2>
+                <div class="booking-table-container">
+                    <table class="booking-table" id="bookingHistoryTable">
+                        <thead>
+                            <tr>
+                                <th>Ride ID</th>
+                                <th>Route</th>
+                                <th>Driver</th>
+                                <th>Distance & Fare</th>
+                                <th>Booking Time</th>
+                                <th>Status</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingHistoryBody">
+                            <!-- Bookings will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="feedback-section">
+                <h2 class="section-title-main">Give Feedback</h2>
+                <form class="feedback-form" id="feedbackForm">
+                    <div class="form-group">
+                        <label for="feedbackBookingId">Booking ID <span style="color: #f56565">*</span></label>
+                        <input type="text" id="feedbackBookingId" placeholder="e.g., ABC123" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="feedbackText">Feedback <span style="color: #f56565">*</span></label>
+                        <textarea id="feedbackText" placeholder="Enter your feedback here..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-feedback-btn">Submit Feedback</button>
+                    <div class="feedback-success" id="feedbackSuccess">
+                        <strong>✓ Thank you!</strong> Your feedback has been submitted successfully.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float" id="whatsappFloat" title="Contact via WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+        </svg>
+    </div>
+
+    <!-- Ride Detail Modal -->
+    <div class="ride-detail-modal" id="rideDetailModal">
+        <div class="ride-detail-content">
+            <button class="modal-close" id="rideDetailClose" aria-label="Close">&times;</button>
+            <div id="rideDetailBody">
+                <!-- Ride details will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get user info from sessionStorage
+        const userName = sessionStorage.getItem('userName'); // branded profile name
+        const userPhone = sessionStorage.getItem('userPhone');
+        const customerFullName = sessionStorage.getItem('customerFullName');
+
+        // Redirect to login if no essential user data
+        if (!userPhone) {
+            window.location.href = 'login.html';
+        }
+
+        // Display customer info (actual customer name + phone)
+        document.getElementById('displayName').textContent = customerFullName || 'Customer';
+        document.getElementById('displayPhone').textContent = userPhone;
+
+        // Setup WhatsApp link for phone number
+        const phoneWhatsappLink = document.getElementById('phoneWhatsappLink');
+        const whatsappFloat = document.getElementById('whatsappFloat');
+        const rideDetailsCard = document.getElementById('rideDetailsCard');
+        const rideTracking = document.getElementById('rideTracking');
+        const pickupSuggestionsList = document.getElementById('pickupSuggestions');
+        const dropoffSuggestionsList = document.getElementById('dropoffSuggestions');
+        const pickupInput = document.getElementById('pickupLocation');
+        const dropoffInput = document.getElementById('dropoffLocation');
+        const nearbyPickupListEl = document.getElementById('nearbyPickupList');
+        const nearbyDropoffListEl = document.getElementById('nearbyDropoffList');
+        const pickupLiveStatus = document.getElementById('pickupLiveStatus');
+        const dropoffLiveStatus = document.getElementById('dropoffLiveStatus');
+        const bookingHistoryBody = document.getElementById('bookingHistoryBody');
+        const rideDetailModal = document.getElementById('rideDetailModal');
+        const rideDetailBody = document.getElementById('rideDetailBody');
+        const rideDetailClose = document.getElementById('rideDetailClose');
+
+        // Tracking search elements
+        const searchPickup = document.getElementById('searchPickup');
+        const searchDropoff = document.getElementById('searchDropoff');
+        const searchRideBtn = document.getElementById('searchRideBtn');
+        const searchResults = document.getElementById('searchResults');
+        const searchResultsContent = document.getElementById('searchResultsContent');
+
+        // Store bookings in localStorage for search functionality
+        let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        const MAX_HISTORY_RECORDS = 50;
+        let rideHistory = [];
+        let rideHistoryMap = new Map();
+        let isRideHistoryLoading = false;
+
+        const formatBookingRecord = (record = {}) => {
+            const createdAt = record.createdAt || record.created_at || record.timestamp || new Date().toISOString();
+            const derivedDate = record.date || record.ride_date || (createdAt ? createdAt.split('T')[0] : '');
+            const derivedTime = record.time || record.ride_time || (createdAt && createdAt.includes('T') ? createdAt.split('T')[1].slice(0, 5) : '');
+
+            const customerNameValue = record.customer_name || record.name || customerFullName || 'Customer';
+            const customerPhoneValue = record.customer_phone || record.phone || userPhone;
+
+            return {
+                booking_id: record.booking_id || record.id || null,
+                pickup: record.pickup || record.pickup_location || 'Not specified',
+                dropoff: record.dropoff || record.dropoff_location || 'Not specified',
+                date: derivedDate,
+                time: derivedTime,
+                carType: record.carType || record.car_type || 'Not specified',
+                notes: record.notes || record.additional_notes || 'None',
+                status: (record.status || 'pending').toLowerCase(),
+                createdAt,
+                customerName: customerNameValue,
+                customerPhone: customerPhoneValue,
+                name: customerNameValue,
+                phone: customerPhoneValue
+            };
+        };
+
+        bookings = bookings.map(formatBookingRecord);
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+
+        async function syncBookingsFromServer() {
+            if (!userPhone) return;
+            const offlineBookings = bookings.filter(item => !item.booking_id);
+
+            try {
+                const response = await fetch(`api/get_bookings.php?customer_phone=${encodeURIComponent(userPhone)}&limit=${MAX_HISTORY_RECORDS}`);
+                const result = await response.json();
+
+                if (result.success && result.data?.bookings) {
+                    const serverBookings = result.data.bookings.map(formatBookingRecord);
+                    const existingIds = new Set(serverBookings.map(item => item.booking_id));
+                    const merged = serverBookings.concat(
+                        offlineBookings.filter(item => !item.booking_id || !existingIds.has(item.booking_id))
+                    );
+
+                    bookings = merged.slice(0, MAX_HISTORY_RECORDS);
+                    localStorage.setItem('bookings', JSON.stringify(bookings));
+                }
+            } catch (error) {
+                console.error('Failed to sync booking history', error);
+            }
+        }
+
+        // Nearby locations dataset (mocked with approximate coordinates)
+        const nearbyLocations = [
+            { name: 'Airport Terminal 1', area: 'Airport Road', type: 'Airport', tags: ['pickup', 'dropoff'], lat: 18.5793, lon: 73.9109, fallbackDistance: 4.2 },
+            { name: 'Airport Terminal 2', area: 'Airport Road', type: 'Airport', tags: ['pickup', 'dropoff'], lat: 18.5809, lon: 73.9125, fallbackDistance: 4.5 },
+            { name: 'Central Railway Station', area: 'Camp', type: 'Railway Station', tags: ['pickup', 'dropoff'], lat: 18.5286, lon: 73.8743, fallbackDistance: 3.1 },
+            { name: 'City Bus Stand', area: 'MG Road', type: 'Bus Stand', tags: ['pickup', 'dropoff'], lat: 18.5167, lon: 73.8563, fallbackDistance: 2.7 },
+            { name: 'Downtown Mall', area: 'Koregaon Park', type: 'Mall', tags: ['pickup', 'dropoff'], lat: 18.5362, lon: 73.8937, fallbackDistance: 1.8 },
+            { name: 'Tech Park Phase 1', area: 'Hinjewadi', type: 'IT Park', tags: ['pickup'], lat: 18.5994, lon: 73.7207, fallbackDistance: 7.9 },
+            { name: 'Tech Park Phase 2', area: 'Hinjewadi', type: 'IT Park', tags: ['pickup'], lat: 18.6011, lon: 73.7090, fallbackDistance: 8.1 },
+            { name: 'University Main Gate', area: 'Ganeshkhind', type: 'University', tags: ['pickup', 'dropoff'], lat: 18.5523, lon: 73.8268, fallbackDistance: 3.8 },
+            { name: 'City Hospital', area: 'Shivajinagar', type: 'Hospital', tags: ['pickup', 'dropoff'], lat: 18.5306, lon: 73.8523, fallbackDistance: 2.2 },
+            { name: 'Grand Plaza Hotel', area: 'Bund Garden', type: 'Hotel', tags: ['pickup', 'dropoff'], lat: 18.5400, lon: 73.8855, fallbackDistance: 1.5 },
+            { name: 'Greenwood Residency', area: 'Aundh', type: 'Residence', tags: ['pickup', 'dropoff'], lat: 18.5680, lon: 73.8077, fallbackDistance: 4.6 },
+            { name: 'Sunrise Apartments', area: 'Viman Nagar', type: 'Residence', tags: ['pickup', 'dropoff'], lat: 18.5672, lon: 73.9145, fallbackDistance: 5.1 },
+            { name: 'Lakeview Society', area: 'Kalyani Nagar', type: 'Residence', tags: ['pickup', 'dropoff'], lat: 18.5480, lon: 73.9023, fallbackDistance: 2.4 },
+            { name: 'Metro Station Gate 1', area: 'Civil Court', type: 'Metro', tags: ['pickup', 'dropoff'], lat: 18.5302, lon: 73.8500, fallbackDistance: 2.0 },
+            { name: 'Metro Station Gate 2', area: 'PCMC', type: 'Metro', tags: ['pickup', 'dropoff'], lat: 18.6483, lon: 73.8215, fallbackDistance: 10.5 },
+            { name: 'Industrial Area Gate', area: 'Bhosari MIDC', type: 'Industrial', tags: ['pickup', 'dropoff'], lat: 18.6324, lon: 73.8441, fallbackDistance: 9.1 },
+            { name: 'Business Bay Towers', area: 'Baner', type: 'Business', tags: ['pickup', 'dropoff'], lat: 18.5661, lon: 73.7766, fallbackDistance: 6.0 },
+            { name: 'Old City Market', area: 'Laxmi Road', type: 'Market', tags: ['dropoff'], lat: 18.5129, lon: 73.8564, fallbackDistance: 3.3 },
+            { name: 'New Town Square', area: 'Magarpatta', type: 'Commercial', tags: ['pickup', 'dropoff'], lat: 18.5163, lon: 73.9331, fallbackDistance: 5.5 },
+            { name: 'City Stadium', area: 'Swargate', type: 'Stadium', tags: ['dropoff'], lat: 18.4906, lon: 73.8580, fallbackDistance: 4.4 }
+        ];
+
+        let userCoordinates = null;
+
+        function haversineDistance(lat1, lon1, lat2, lon2) {
+            const toRad = (value) => (value * Math.PI) / 180;
+            const R = 6371; // km
+            const dLat = toRad(lat2 - lat1);
+            const dLon = toRad(lon2 - lon1);
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return +(R * c).toFixed(1);
+        }
+
+        function getDistanceForLocation(location) {
+            if (userCoordinates && location.lat && location.lon) {
+                return haversineDistance(userCoordinates.lat, userCoordinates.lon, location.lat, location.lon);
+            }
+            return location.fallbackDistance || 0;
+        }
+
+        function updateLiveStatus(element, message, isActive = true) {
+            if (!element) return;
+            element.innerHTML = `
+                <span style="background:${isActive ? '#48bb78' : '#f56565'}"></span>
+                ${message}
+            `;
+        }
+
+        function populateSuggestions(listElement, filterText = '') {
+            if (!listElement) return;
+            const normalized = filterText.trim().toLowerCase();
+            listElement.innerHTML = '';
+
+            nearbyLocations
+                .filter(loc =>
+                    loc.name.toLowerCase().includes(normalized) ||
+                    loc.area.toLowerCase().includes(normalized) ||
+                    loc.type.toLowerCase().includes(normalized)
+                )
+                .slice(0, 10)
+                .forEach(loc => {
+                    const option = document.createElement('option');
+                    option.value = loc.name;
+                    listElement.appendChild(option);
+                });
+        }
+
+        function renderNearbyCards(container, tag, attachToInput) {
+            if (!container) return;
+            container.innerHTML = '';
+            const filtered = nearbyLocations
+                .filter(loc => loc.tags.includes(tag))
+                .map(loc => ({
+                    ...loc,
+                    distance: getDistanceForLocation(loc)
+                }))
+                .sort((a, b) => a.distance - b.distance)
+                .slice(0, 5);
+
+            if (!filtered.length) {
+                container.innerHTML = '<p style="color:#4a5568;">No nearby locations available.</p>';
+                return;
+            }
+
+            filtered.forEach(loc => {
+                const card = document.createElement('div');
+                card.className = 'nearby-card';
+                card.innerHTML = `
+                    <strong>${loc.name}</strong>
+                    <small>${loc.area}</small>
+                    <div class="nearby-meta">
+                        <span class="nearby-badge">${loc.type}</span>
+                        <span class="nearby-distance">${loc.distance} km away</span>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    attachToInput.value = loc.name;
+                    attachToInput.dispatchEvent(new Event('input'));
+                });
+                container.appendChild(card);
+            });
+        }
+
+        function refreshNearbyUI() {
+            renderNearbyCards(nearbyPickupListEl, 'pickup', pickupInput);
+            renderNearbyCards(nearbyDropoffListEl, 'dropoff', dropoffInput);
+        }
+
+        refreshNearbyUI();
+
+        // Geolocation for live distances
+        if ('geolocation' in navigator) {
+            updateLiveStatus(pickupLiveStatus, 'Locking current location...', true);
+            updateLiveStatus(dropoffLiveStatus, 'Locking current location...', true);
+
+            navigator.geolocation.getCurrentPosition((position) => {
+                userCoordinates = {
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude
+                };
+                updateLiveStatus(pickupLiveStatus, 'Live location locked', true);
+                updateLiveStatus(dropoffLiveStatus, 'Live location locked', true);
+                refreshNearbyUI();
+            }, () => {
+                updateLiveStatus(pickupLiveStatus, 'Live location unavailable', false);
+                updateLiveStatus(dropoffLiveStatus, 'Live location unavailable', false);
+                refreshNearbyUI();
+            }, {
+                enableHighAccuracy: true,
+                timeout: 5000
+            });
+        } else {
+            updateLiveStatus(pickupLiveStatus, 'Geolocation not supported', false);
+            updateLiveStatus(dropoffLiveStatus, 'Geolocation not supported', false);
+            refreshNearbyUI();
+        }
+
+        // Initialize suggestions list and update as user types
+        populateSuggestions(pickupSuggestionsList);
+        populateSuggestions(dropoffSuggestionsList);
+
+        pickupInput.addEventListener('input', (event) => {
+            populateSuggestions(pickupSuggestionsList, event.target.value);
+        });
+
+        dropoffInput.addEventListener('input', (event) => {
+            populateSuggestions(dropoffSuggestionsList, event.target.value);
+        });
+
+        function formatDistance(distance) {
+            if (!distance && distance !== 0) return '—';
+            const value = parseFloat(distance);
+            if (Number.isNaN(value)) return '—';
+            return `${value.toFixed(1)} km`;
+        }
+
+        function formatFare(fare) {
+            if (!fare && fare !== 0) return '—';
+            const value = parseFloat(fare);
+            if (Number.isNaN(value)) return '—';
+            return `₹${value.toFixed(2)}`;
+        }
+
+        function getStatusBadgeClass(status) {
+            const normalized = (status || 'pending').toLowerCase();
+            switch (normalized) {
+                case 'completed':
+                    return 'status-badge status-completed';
+                case 'active':
+                case 'upcoming':
+                case 'confirmed':
+                    return 'status-badge status-active';
+                case 'cancelled':
+                    return 'status-badge status-cancelled';
+                default:
+                    return 'status-badge status-pending';
+            }
+        }
+
+        async function fetchRideHistory(force = false) {
+            if (!userPhone) return;
+            if (isRideHistoryLoading && !force) return;
+            isRideHistoryLoading = true;
+
+            try {
+                const response = await fetch(`api/get_ride_history.php?customer_phone=${encodeURIComponent(userPhone)}&limit=${MAX_HISTORY_RECORDS}`);
+                const result = await response.json();
+
+                if (result.success && result.data?.rides) {
+                    rideHistory = result.data.rides;
+                    rideHistoryMap = new Map(rideHistory.map(ride => [ride.booking_id, ride]));
+                    renderRideHistory();
+                } else if (!rideHistory.length) {
+                    renderRideHistory(); // ensure empty state
+                }
+            } catch (error) {
+                console.error('Failed to load ride history', error);
+                if (!rideHistory.length) {
+                    renderRideHistory();
+                }
+            } finally {
+                isRideHistoryLoading = false;
+            }
+        }
+
+        function renderRideHistory() {
+            if (!bookingHistoryBody) return;
+
+            if (!rideHistory.length) {
+                bookingHistoryBody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📋</div>
+                                <h3>No rides found</h3>
+                                <p>Your booking history will appear as soon as you schedule a ride.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const sortedHistory = [...rideHistory].sort((a, b) => {
+                const dateA = new Date(a.created_at || a.ride_date || 0);
+                const dateB = new Date(b.created_at || b.ride_date || 0);
+                return dateB - dateA;
+            });
+
+            const rows = sortedHistory.map((ride) => {
+                const bookingDate = ride.ride_date ? new Date(`${ride.ride_date}T${ride.ride_time || '00:00'}`) : new Date(ride.created_at);
+                const bookingDateDisplay = !isNaN(bookingDate)
+                    ? bookingDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                    : (ride.ride_date || 'N/A');
+                const bookingTimeDisplay = ride.ride_time || (bookingDate ? bookingDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'N/A');
+                const routeHtml = `
+                    <div class="history-route">
+                        <div>
+                            <strong>${ride.pickup_location || 'Pickup TBD'}</strong>
+                            <span>→</span>
+                            <strong>${ride.dropoff_location || 'Drop TBD'}</strong>
+                        </div>
+                        <div class="history-meta">${bookingDateDisplay} • ${bookingTimeDisplay}</div>
+                    </div>
+                `;
+
+                const driverHtml = ride.driver_name
+                    ? `<div><strong>${ride.driver_name}</strong></div><div class="history-meta">${ride.driver_phone || 'Phone N/A'} • ${ride.vehicle_number || 'Vehicle TBD'}</div>`
+                    : '<div class="history-meta">Driver will be assigned soon</div>';
+
+                return `
+                    <tr>
+                        <td><strong>${ride.booking_id || ride.ride_history_id || '—'}</strong></td>
+                        <td>${routeHtml}</td>
+                        <td>${driverHtml}</td>
+                        <td>
+                            <div><strong>${formatDistance(ride.distance)}</strong></div>
+                            <div class="history-meta">${formatFare(ride.fare)}</div>
+                        </td>
+                        <td>
+                            ${bookingDateDisplay}<br>
+                            <small style="color:#718096;">${bookingTimeDisplay}</small>
+                        </td>
+                        <td><span class="${getStatusBadgeClass(ride.ride_status || ride.booking_status)}">${(ride.ride_status || ride.booking_status || 'pending')}</span></td>
+                        <td><button class="history-action-btn" data-booking-id="${ride.booking_id}">View</button></td>
+                    </tr>
+                `;
+            }).join('');
+
+            bookingHistoryBody.innerHTML = rows;
+        }
+
+        function renderRideDetail(ride) {
+            const bookingDate = ride.ride_date ? `${ride.ride_date} ${ride.ride_time || ''}` : ride.created_at;
+            return `
+                <h2 style="margin-top:0;">Ride #${ride.booking_id || ride.ride_history_id || ''}</h2>
+                <p style="color:#718096;">${bookingDate ? new Date(bookingDate).toLocaleString() : ''}</p>
+                <div class="history-stats">
+                    <div class="history-stat-card">
+                        <span>Ride Status</span>
+                        <strong style="text-transform:capitalize;">${ride.ride_status || ride.booking_status || 'pending'}</strong>
+                    </div>
+                    <div class="history-stat-card">
+                        <span>Distance</span>
+                        <strong>${formatDistance(ride.distance)}</strong>
+                    </div>
+                    <div class="history-stat-card">
+                        <span>Fare</span>
+                        <strong>${formatFare(ride.fare)}</strong>
+                    </div>
+                    <div class="history-stat-card">
+                        <span>Driver</span>
+                        <strong>${ride.driver_name || 'Assigning'}</strong>
+                    </div>
+                </div>
+                <div class="ride-detail-grid">
+                    <div class="ride-detail-card">
+                        <label>Pickup Location</label>
+                        <strong>${ride.pickup_location || 'Not specified'}</strong>
+                    </div>
+                    <div class="ride-detail-card">
+                        <label>Drop-off Location</label>
+                        <strong>${ride.dropoff_location || 'Not specified'}</strong>
+                    </div>
+                    <div class="ride-detail-card">
+                        <label>Driver Contact</label>
+                        <strong>${ride.driver_phone || 'TBD'}</strong>
+                    </div>
+                    <div class="ride-detail-card">
+                        <label>Vehicle</label>
+                        <strong>${ride.vehicle_number || 'TBD'}</strong>
+                    </div>
+                    <div class="ride-detail-card">
+                        <label>Car Type</label>
+                        <strong>${ride.car_type || 'Requested'}</strong>
+                    </div>
+                    <div class="ride-detail-card">
+                        <label>Notes</label>
+                        <strong>${ride.additional_notes || 'None'}</strong>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function openRideDetailModal(bookingId) {
+            if (!bookingId) return;
+            let ride = rideHistoryMap.get(bookingId);
+
+            if (!ride) {
+                try {
+                    const response = await fetch(`api/get_ride_detail.php?booking_id=${encodeURIComponent(bookingId)}`);
+                    const result = await response.json();
+                    if (result.success && result.data) {
+                        ride = result.data;
+                        rideHistoryMap.set(bookingId, ride);
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch ride detail', error);
+                }
+            }
+
+            if (!ride) {
+                alert('Ride details not found.');
+                return;
+            }
+
+            rideDetailBody.innerHTML = renderRideDetail(ride);
+            rideDetailModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRideDetailModal() {
+            rideDetailModal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        rideDetailClose.addEventListener('click', closeRideDetailModal);
+        rideDetailModal.addEventListener('click', (event) => {
+            if (event.target === rideDetailModal) {
+                closeRideDetailModal();
+            }
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && rideDetailModal.classList.contains('show')) {
+                closeRideDetailModal();
+            }
+        });
+        if (bookingHistoryBody) {
+            bookingHistoryBody.addEventListener('click', (event) => {
+                const target = event.target.closest('.history-action-btn');
+                if (target) {
+                    const bookingId = target.getAttribute('data-booking-id');
+                    openRideDetailModal(bookingId);
+                }
+            });
+        }
+
+        // Function to create WhatsApp message with customer phone number
+        function createWhatsAppMessage(bookingData = null) {
+            let message = `Hello Smart Cab Support!\n\n`;
+            message += `📱 Customer Phone: ${userPhone}\n`;
+            message += `👤 Customer Name: ${customerFullName || 'Customer'}\n\n`;
+
+            if (bookingData) {
+                message += `Booking Details:\n`;
+                message += `🚗 Car Type: ${bookingData.carType}\n`;
+                message += `📍 Pickup: ${bookingData.pickup}\n`;
+                message += `📍 Drop-off: ${bookingData.dropoff}\n`;
+                message += `📅 Date: ${bookingData.date}\n`;
+                message += `⏰ Time: ${bookingData.time}\n`;
+                if (bookingData.notes) {
+                    message += `📝 Notes: ${bookingData.notes}\n`;
+                }
+            } else {
+                message += `I need assistance with my booking.`;
+            }
+
+            return message;
+        }
+
+        // Phone WhatsApp link
+        phoneWhatsappLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            const message = createWhatsAppMessage();
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/918669164040?text=${encodedMessage}`, '_blank');
+        });
+
+        // Floating WhatsApp button
+        whatsappFloat.addEventListener('click', function () {
+            const pickup = document.getElementById('pickupLocation').value.trim() || 'Not specified';
+            const dropoff = document.getElementById('dropoffLocation').value.trim() || 'Not specified';
+            const rideDate = document.getElementById('rideDate').value || 'Not selected';
+            const rideTime = document.getElementById('rideTime').value || 'Not selected';
+            const carType = document.querySelector('input[name="carType"]:checked')?.value || 'Not selected';
+            const notes = document.getElementById('additionalNotes').value.trim() || 'None';
+
+            const dateObj = rideDate ? new Date(rideDate) : null;
+            const formattedDate = dateObj ? dateObj.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) : 'Not selected';
+
+            const bookingData = {
+                carType: carType,
+                pickup: pickup,
+                dropoff: dropoff,
+                date: formattedDate,
+                time: rideTime,
+                notes: notes
+            };
+
+            const message = createWhatsAppMessage(bookingData);
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/918669164040?text=${encodedMessage}`, '_blank');
+        });
+
+        // Set minimum date to today
+        const rideDateInput = document.getElementById('rideDate');
+        const today = new Date().toISOString().split('T')[0];
+        rideDateInput.setAttribute('min', today);
+
+        const bookingForm = document.getElementById('bookingForm');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const successMessage = document.getElementById('successMessage');
+
+        // Form submission
+        bookingForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const pickup = document.getElementById('pickupLocation').value.trim();
+            const dropoff = document.getElementById('dropoffLocation').value.trim();
+            const rideDate = document.getElementById('rideDate').value;
+            const rideTime = document.getElementById('rideTime').value;
+            const carType = document.querySelector('input[name="carType"]:checked')?.value;
+            const notes = document.getElementById('additionalNotes').value.trim();
+
+            if (!pickup || !dropoff || !rideDate || !rideTime || !carType) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Disable submit button
+            const submitBtn = bookingForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>⏳ Saving...</span>';
+
+            try {
+                // Send booking to backend API
+                const response = await fetch('api/save_booking.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        pickupLocation: pickup,
+                        dropoffLocation: dropoff,
+                        rideDate: rideDate,
+                        rideTime: rideTime,
+                        carType: carType,
+                        additionalNotes: notes,
+                        customerName: customerFullName || 'Customer',
+                        customerPhone: userPhone
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Format date for display
+                    const dateObj = new Date(rideDate);
+                    const formattedDate = dateObj.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    // Show success message
+                    successMessage.classList.add('show');
+                    bookingForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Prepare booking data
+                    const bookingData = {
+                        booking_id: result.data.booking_id,
+                        carType: carType,
+                        pickup: pickup,
+                        dropoff: dropoff,
+                        date: formattedDate,
+                        time: rideTime,
+                        notes: notes
+                    };
+
+                    // Display ride details with booking ID
+                    displayRideDetails(bookingData);
+
+                    // Start ride tracking
+                    startRideTracking(pickup, dropoff);
+
+                    // Save booking to localStorage for offline access
+                    const bookingRecord = formatBookingRecord({
+                        booking_id: result.data.booking_id,
+                        customer_name: customerFullName || 'Customer',
+                        customer_phone: userPhone,
+                        car_type: carType,
+                        pickup_location: pickup,
+                        dropoff_location: dropoff,
+                        ride_date: rideDate,
+                        ride_time: rideTime,
+                        additional_notes: notes || 'None',
+                        status: result.data.status || 'pending',
+                        created_at: new Date().toISOString()
+                    });
+                    bookings = [bookingRecord, ...bookings].slice(0, MAX_HISTORY_RECORDS);
+                    localStorage.setItem('bookings', JSON.stringify(bookings));
+
+                    // Refresh ride history from server
+                    await fetchRideHistory(true);
+
+                    // Prepare WhatsApp message with customer phone number
+                    const whatsappMessage = createWhatsAppMessage(bookingData);
+
+                    // Update WhatsApp button
+                    whatsappBtn.onclick = function () {
+                        const encodedMessage = encodeURIComponent(whatsappMessage);
+                        window.open(`https://wa.me/918669164040?text=${encodedMessage}`, '_blank');
+                    };
+
+                    // Auto-open WhatsApp after 2 seconds
+                    setTimeout(() => {
+                        const encodedMessage = encodeURIComponent(whatsappMessage);
+                        window.open(`https://wa.me/918669164040?text=${encodedMessage}`, '_blank');
+                    }, 2000);
+
+                    // Reset form after successful submission
+                    setTimeout(() => {
+                        bookingForm.reset();
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to save booking. Please try again.');
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+
+        // WhatsApp button click
+        whatsappBtn.addEventListener('click', function () {
+            const pickup = document.getElementById('pickupLocation').value.trim() || 'Not specified';
+            const dropoff = document.getElementById('dropoffLocation').value.trim() || 'Not specified';
+            const rideDate = document.getElementById('rideDate').value || 'Not selected';
+            const rideTime = document.getElementById('rideTime').value || 'Not selected';
+            const carType = document.querySelector('input[name="carType"]:checked')?.value || 'Not selected';
+            const notes = document.getElementById('additionalNotes').value.trim() || 'None';
+
+            const dateObj = rideDate ? new Date(rideDate) : null;
+            const formattedDate = dateObj ? dateObj.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) : 'Not selected';
+
+            const whatsappMessage = `Hello Smart Cab Support!\n\nI need assistance with my booking:\n\n` +
+                `👤 Name: ${customerFullName || 'Customer'}\n` +
+                `📱 Phone: ${userPhone}\n` +
+                `🚗 Car Type: ${carType}\n` +
+                `📍 Pickup: ${pickup}\n` +
+                `📍 Drop-off: ${dropoff}\n` +
+                `📅 Date: ${formattedDate}\n` +
+                `⏰ Time: ${rideTime}\n` +
+                `📝 Notes: ${notes}`;
+
+            const bookingData = {
+                carType: carType,
+                pickup: pickup,
+                dropoff: dropoff,
+                date: formattedDate,
+                time: rideTime,
+                notes: notes
+            };
+
+            const message = createWhatsAppMessage(bookingData);
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/918669164040?text=${encodedMessage}`, '_blank');
+        });
+
+        // Function to display ride details
+        function displayRideDetails(bookingData) {
+            const detailsGrid = document.getElementById('rideDetailsGrid');
+            detailsGrid.innerHTML = `
+                <div class="detail-item">
+                    <label>Customer Name</label>
+                    <value>${customerFullName || 'Customer'}</value>
+                </div>
+                <div class="detail-item">
+                    <label>Phone Number</label>
+                    <value>${userPhone}</value>
+                </div>
+                <div class="detail-item">
+                    <label>Car Type</label>
+                    <value>${bookingData.carType}</value>
+                </div>
+                <div class="detail-item">
+                    <label>Pickup Location</label>
+                    <value>${bookingData.pickup}</value>
+                </div>
+                <div class="detail-item">
+                    <label>Drop-off Location</label>
+                    <value>${bookingData.dropoff}</value>
+                </div>
+                <div class="detail-item">
+                    <label>Ride Date</label>
+                    <value>${bookingData.date}</value>
+                </div>
+                <div class="detail-item">
+                    <label>Ride Time</label>
+                    <value>${bookingData.time}</value>
+                </div>
+                ${bookingData.notes && bookingData.notes !== 'None' ? `
+                <div class="detail-item">
+                    <label>Additional Notes</label>
+                    <value>${bookingData.notes}</value>
+                </div>
+                ` : ''}
+            `;
+            rideDetailsCard.classList.add('active');
+        }
+
+        // Function to start ride tracking with traffic-based updates
+        function startRideTracking(pickup, dropoff) {
+            rideTracking.classList.add('active');
+
+            // Generate random driver name
+            const driverNames = ['SAGAR RAJU PANDHARE', 'RAHUL KUMAR SHARMA', 'AMIT SINGH YADAV', 'VIKASH PATEL', 'RAJESH KUMAR'];
+            const randomDriver = driverNames[Math.floor(Math.random() * driverNames.length)];
+            document.getElementById('driverName').textContent = randomDriver;
+
+            // Status messages
+            const statusMessages = [
+                { main: 'Picking your order now', info: 'is at the restaurant, and is about to pick your ride.' },
+                { main: 'Driver is on the way', info: 'has picked up your ride and is heading to your location.' },
+                { main: 'Almost there', info: 'is nearby and will reach you shortly.' },
+                { main: 'Arriving now', info: 'has arrived at your pickup location.' }
+            ];
+
+            let statusIndex = 0;
+            let eta = 8; // Starting ETA in minutes
+            let baseEta = 8; // Base ETA for traffic calculations
+            let trafficMultiplier = 1.0; // Traffic multiplier (1.0 = normal, >1.0 = heavy traffic, <1.0 = light traffic)
+            let lastTrafficUpdate = Date.now();
+            let trafficCondition = 'normal'; // 'light', 'normal', 'heavy', 'very-heavy'
+            let startTime = Date.now(); // Track when tracking started
+            let elapsedSeconds = 0; // Track elapsed time
+
+            // Traffic condition messages
+            const trafficMessages = {
+                'light': 'Light traffic - faster route available',
+                'normal': 'Normal traffic conditions',
+                'heavy': 'Heavy traffic detected - slight delay',
+                'very-heavy': 'Very heavy traffic - longer route taken'
+            };
+
+            // Function to update traffic condition
+            function updateTrafficCondition() {
+                const now = Date.now();
+                // Update traffic every 10-15 seconds
+                if (now - lastTrafficUpdate > 10000 + Math.random() * 5000) {
+                    const random = Math.random();
+
+                    if (random < 0.3) {
+                        // Light traffic (30% chance)
+                        trafficCondition = 'light';
+                        trafficMultiplier = 0.7 + Math.random() * 0.2; // 0.7-0.9
+                    } else if (random < 0.7) {
+                        // Normal traffic (40% chance)
+                        trafficCondition = 'normal';
+                        trafficMultiplier = 0.9 + Math.random() * 0.2; // 0.9-1.1
+                    } else if (random < 0.9) {
+                        // Heavy traffic (20% chance)
+                        trafficCondition = 'heavy';
+                        trafficMultiplier = 1.2 + Math.random() * 0.3; // 1.2-1.5
+                    } else {
+                        // Very heavy traffic (10% chance)
+                        trafficCondition = 'very-heavy';
+                        trafficMultiplier = 1.5 + Math.random() * 0.5; // 1.5-2.0
+                    }
+
+                    lastTrafficUpdate = now;
+
+                    // Update status text based on traffic
+                    if (trafficCondition === 'light') {
+                        document.getElementById('statusText').textContent = 'FAST ROUTE';
+                        document.getElementById('statusText').style.color = '#10b981';
+                    } else if (trafficCondition === 'normal') {
+                        document.getElementById('statusText').textContent = 'ON TIME';
+                        document.getElementById('statusText').style.color = '#10b981';
+                    } else if (trafficCondition === 'heavy') {
+                        document.getElementById('statusText').textContent = 'TRAFFIC';
+                        document.getElementById('statusText').style.color = '#f59e0b';
+                    } else {
+                        document.getElementById('statusText').textContent = 'HEAVY TRAFFIC';
+                        document.getElementById('statusText').style.color = '#ef4444';
+                    }
+                }
+            }
+
+            // Simulate tracking updates with traffic
+            const trackingInterval = setInterval(() => {
+                // Update traffic condition
+                updateTrafficCondition();
+
+                // Increment elapsed time
+                elapsedSeconds++;
+                const elapsedMinutes = elapsedSeconds / 60;
+
+                // Calculate base progress (how much time has passed)
+                const baseProgress = elapsedMinutes / baseEta;
+
+                // Calculate remaining time without traffic
+                let remainingTime = baseEta - elapsedMinutes;
+
+                // Apply traffic multiplier to remaining time
+                // Heavy traffic increases remaining time, light traffic decreases it
+                remainingTime = remainingTime * trafficMultiplier;
+
+                // Update ETA with smooth transitions
+                const targetEta = Math.max(0, remainingTime);
+                const etaDifference = targetEta - eta;
+
+                // Smooth transition (prevents sudden jumps)
+                if (Math.abs(etaDifference) > 0.3) {
+                    // Gradual change for large differences
+                    eta += etaDifference > 0 ? 0.15 : -0.15;
+                } else {
+                    // Direct update for small differences
+                    eta = targetEta;
+                }
+
+                // Ensure ETA stays within reasonable bounds
+                eta = Math.max(0, Math.min(eta, 15));
+
+                // Update ETA display (round up for display)
+                const displayEta = Math.ceil(eta);
+                document.getElementById('etaNumber').textContent = displayEta;
+
+                // Update status messages based on ETA
+                if (displayEta > 6 && statusIndex === 0) {
+                    // Keep initial status
+                } else if (displayEta <= 6 && displayEta > 3 && statusIndex === 0) {
+                    statusIndex = 1;
+                    document.getElementById('mainStatus').textContent = statusMessages[1].main;
+                    document.getElementById('driverInfo').innerHTML = `<span id="driverName">${randomDriver}</span> ${statusMessages[1].info}`;
+                } else if (displayEta <= 3 && displayEta > 1 && statusIndex <= 1) {
+                    statusIndex = 2;
+                    document.getElementById('mainStatus').textContent = statusMessages[2].main;
+                    document.getElementById('driverInfo').innerHTML = `<span id="driverName">${randomDriver}</span> ${statusMessages[2].info}`;
+                } else if (displayEta <= 1 && statusIndex <= 2) {
+                    statusIndex = 3;
+                    document.getElementById('mainStatus').textContent = statusMessages[3].main;
+                    document.getElementById('driverInfo').innerHTML = `<span id="driverName">${randomDriver}</span> ${statusMessages[3].info}`;
+                    if (displayEta === 0) {
+                        document.getElementById('statusText').textContent = 'ARRIVED';
+                        document.getElementById('statusText').style.color = '#10b981';
+                    }
+                }
+
+                // Update driver info with traffic information (occasionally)
+                if (Math.random() < 0.1 && trafficCondition !== 'normal') {
+                    const trafficInfo = trafficMessages[trafficCondition];
+                    const currentInfo = document.getElementById('driverInfo').innerHTML;
+                    if (!currentInfo.includes(trafficInfo)) {
+                        document.getElementById('driverInfo').innerHTML =
+                            `<span id="driverName">${randomDriver}</span> ${statusMessages[statusIndex].info} <span style="color: #f59e0b; font-size: 12px;">(${trafficInfo})</span>`;
+                    }
+                }
+
+                // Complete ride when ETA reaches 0
+                if (displayEta === 0 && eta <= 0) {
+                    clearInterval(trackingInterval);
+                    document.getElementById('mainStatus').textContent = 'Ride Completed';
+                    document.getElementById('etaNumber').textContent = '0';
+                    document.getElementById('statusText').textContent = 'ARRIVED';
+                    document.getElementById('statusText').style.color = '#10b981';
+                }
+            }, 1000); // Update every second
+        }
+
+        // Contact driver button
+        const contactDriverBtn = document.getElementById('contactDriverBtn');
+        if (contactDriverBtn) {
+            contactDriverBtn.addEventListener('click', function () {
+                const driverName = document.getElementById('driverName').textContent;
+                const message = `Hello ${driverName}, I need to contact you regarding my ride booking.`;
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/918669164040?text=${encodedMessage}`, '_blank');
+            });
+        }
+
+        // Search ride functionality
+        searchRideBtn.addEventListener('click', async function () {
+            const pickup = searchPickup.value.trim();
+            const dropoff = searchDropoff.value.trim();
+
+            if (!pickup || !dropoff) {
+                alert('Please enter both pickup and drop-off locations');
+                return;
+            }
+
+            // Disable search button
+            const originalText = searchRideBtn.innerHTML;
+            searchRideBtn.disabled = true;
+            searchRideBtn.innerHTML = '<span>⏳ Searching...</span>';
+
+            try {
+                // Search bookings from API
+                const response = await fetch(`api/search_booking.php?pickup=${encodeURIComponent(pickup)}&dropoff=${encodeURIComponent(dropoff)}`);
+                const result = await response.json();
+
+                if (result.success && result.data.bookings.length > 0) {
+                    // Display results from API
+                    displaySearchResults(result.data.bookings);
+                } else {
+                    // Fallback to localStorage search
+                    const matchingBookings = bookings.filter(booking => {
+                        const bookingPickup = booking.pickup.toLowerCase();
+                        const bookingDropoff = booking.dropoff.toLowerCase();
+                        return bookingPickup.includes(pickup.toLowerCase()) && bookingDropoff.includes(dropoff.toLowerCase());
+                    });
+
+                    if (matchingBookings.length === 0) {
+                        searchResultsContent.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h4>No bookings found</h4>
+                        <p>No matching rides found for the entered locations. Please check your inputs and try again.</p>
+                    </div>
+                `;
+                        searchResults.classList.add('active');
+                    } else {
+                        displaySearchResults(matchingBookings);
+                    }
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                // Fallback to localStorage search
+                const matchingBookings = bookings.filter(booking => {
+                    const bookingPickup = booking.pickup.toLowerCase();
+                    const bookingDropoff = booking.dropoff.toLowerCase();
+                    return bookingPickup.includes(pickup.toLowerCase()) && bookingDropoff.includes(dropoff.toLowerCase());
+                });
+
+                if (matchingBookings.length === 0) {
+                    searchResultsContent.innerHTML = `
+                        <div class="no-results">
+                            <div class="no-results-icon">🔍</div>
+                            <h4>No bookings found</h4>
+                            <p>No matching rides found for the entered locations. Please check your inputs and try again.</p>
+                        </div>
+                    `;
+                    searchResults.classList.add('active');
+                } else {
+                    displaySearchResults(matchingBookings);
+                }
+            } finally {
+                // Re-enable search button
+                searchRideBtn.disabled = false;
+                searchRideBtn.innerHTML = originalText;
+            }
+        });
+
+        // Function to display search results
+        function displaySearchResults(bookings) {
+            let resultsHTML = '';
+
+            bookings.forEach((booking, index) => {
+                // Handle both API format and localStorage format
+                const bookingDate = booking.ride_date || booking.date;
+                const pickup = booking.pickup_location || booking.pickup;
+                const dropoff = booking.dropoff_location || booking.dropoff;
+                const carType = booking.car_type || booking.carType;
+                const customerName = booking.customer_name || booking.name;
+                const customerPhone = booking.customer_phone || booking.phone;
+                const rideTime = booking.ride_time || booking.time;
+                const bookingId = booking.booking_id || booking.id;
+
+                const dateObj = new Date(bookingDate);
+                const formattedDate = dateObj.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                // Generate random tracking data for demo
+                const statuses = ['Active', 'In Progress', 'Scheduled', 'Completed'];
+                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                const driverNames = ['John Doe', 'Mike Smith', 'Sarah Johnson', 'David Brown'];
+                const vehicleNumbers = ['MH-12-AB-1234', 'MH-15-CD-5678', 'MH-18-EF-9012', 'MH-20-GH-3456'];
+                const randomDriver = driverNames[Math.floor(Math.random() * driverNames.length)];
+                const randomVehicle = vehicleNumbers[Math.floor(Math.random() * vehicleNumbers.length)];
+                const randomETA = Math.floor(Math.random() * 15) + 5;
+                const randomDistance = (Math.random() * 5 + 1).toFixed(1);
+
+                resultsHTML += `
+                    <div class="tracking-result-card">
+                        <div class="tracking-result-header">
+                            <h4>${bookingId ? 'Booking ID: ' + bookingId : 'Ride #' + (index + 1)}</h4>
+                            <span class="tracking-badge">${randomStatus}</span>
+                        </div>
+                        <div class="tracking-result-grid">
+                            <div class="tracking-result-item">
+                                <label>Customer Name</label>
+                                <value>${customerName}</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Phone Number</label>
+                                <value>${customerPhone}</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Car Type</label>
+                                <value>${carType}</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Pickup Location</label>
+                                <value>${pickup}</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Drop-off Location</label>
+                                <value>${dropoff}</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Ride Date</label>
+                                <value>${formattedDate}</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Ride Time</label>
+                                <value>${rideTime}</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Driver Name</label>
+                                <value>${randomDriver}</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Vehicle Number</label>
+                                <value>${randomVehicle}</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Estimated Arrival</label>
+                                <value>${randomETA} minutes</value>
+                            </div>
+                            <div class="tracking-result-item">
+                                <label>Distance</label>
+                                <value>${randomDistance} km</value>
+                            </div>
+                            ${booking.notes && booking.notes !== 'None' ? `
+                            <div class="tracking-result-item">
+                                <label>Notes</label>
+                                <value>${booking.notes}</value>
+                            </div>
+                            ` : ''}
+                        </div>
+                        <div class="tracking-result-map">
+                            <div class="pickup-pin"></div>
+                            <div class="dropoff-pin"></div>
+                            <div class="route-line"></div>
+                            <div class="car-marker" style="left: ${20 + Math.random() * 60}%;"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            searchResultsContent.innerHTML = resultsHTML;
+            searchResults.classList.add('active');
+            document.getElementById('resultStatus').textContent = bookings.length > 1 ? `${bookings.length} Results Found` : 'Result Found';
+
+            // Scroll to results
+            searchResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Allow Enter key to trigger search
+        searchPickup.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchRideBtn.click();
+            }
+        });
+
+        searchDropoff.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchRideBtn.click();
+            }
+        });
+
+        // Progress indicator animation is handled by CSS
+        // No JavaScript needed - smoother performance with CSS animations
+
+        // Load booking history on page load
+        (async function initializeBookingHistory() {
+            await syncBookingsFromServer();
+            await fetchRideHistory(true);
+        })();
+
+        // Feedback form submission
+        const feedbackForm = document.getElementById('feedbackForm');
+        const feedbackSuccess = document.getElementById('feedbackSuccess');
+
+        feedbackForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const bookingId = document.getElementById('feedbackBookingId').value.trim();
+            const feedbackText = document.getElementById('feedbackText').value.trim();
+
+            if (!bookingId || !feedbackText) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Save feedback to localStorage
+            const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+            feedbacks.push({
+                bookingId: bookingId,
+                feedback: feedbackText,
+                timestamp: new Date().toISOString(),
+                customerName: userName,
+                customerPhone: userPhone
+            });
+            localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+
+            // Show success message
+            feedbackSuccess.classList.add('show');
+            feedbackForm.reset();
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                feedbackSuccess.classList.remove('show');
+            }, 5000);
+
+            // Scroll to success message
+            feedbackSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });

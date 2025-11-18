@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Settings - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .setting-item:last-child { border-bottom: none; }
+        .setting-info h3 { color: #2d3748; font-size: 16px; margin-bottom: 5px; }
+        .setting-info p { color: #718096; font-size: 13px; }
+        .toggle-switch {
+            width: 50px;
+            height: 26px;
+            background: #cbd5e0;
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .toggle-switch.active { background: #667eea; }
+        .toggle-switch::after {
+            content: '';
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+        .toggle-switch.active::after { transform: translateX(24px); }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Ride Settings</h1>
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Share Ride Details</h3>
+                    <p>Automatically share ride details with emergency contacts</p>
+                </div>
+                <div class="toggle-switch" id="shareRide" onclick="toggle(this)"></div>
+            </div>
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Preferred Car Type</h3>
+                    <p>Set your default car preference</p>
+                </div>
+                <select id="carPreference" style="padding: 8px; border-radius: 8px; border: 2px solid #e2e8f0;">
+                    <option>Any</option>
+                    <option>Economy</option>
+                    <option>Premium</option>
+                    <option>SUV</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Auto-Confirm Rides</h3>
+                    <p>Automatically confirm rides without asking</p>
+                </div>
+                <div class="toggle-switch" id="autoConfirm" onclick="toggle(this)"></div>
+            </div>
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Ride Notifications</h3>
+                    <p>Receive notifications about your ride status</p>
+                </div>
+                <div class="toggle-switch active" id="notifications" onclick="toggle(this)"></div>
+            </div>
+            <button class="btn" onclick="saveSettings()">Save Settings</button>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+        
+        function toggle(element) {
+            element.classList.toggle('active');
+        }
+        
+        function saveSettings() {
+            const settings = {
+                shareRide: document.getElementById('shareRide').classList.contains('active'),
+                carPreference: document.getElementById('carPreference').value,
+                autoConfirm: document.getElementById('autoConfirm').classList.contains('active'),
+                notifications: document.getElementById('notifications').classList.contains('active')
+            };
+            localStorage.setItem('rideSettings', JSON.stringify(settings));
+            alert('Settings saved successfully!');
+        }
+        
+        // Load saved settings
+        const saved = JSON.parse(localStorage.getItem('rideSettings') || '{}');
+        if (saved.shareRide) document.getElementById('shareRide').classList.add('active');
+        if (saved.autoConfirm) document.getElementById('autoConfirm').classList.add('active');
+        if (saved.carPreference) document.getElementById('carPreference').value = saved.carPreference;
+    </script>
+</body>
+</html>
+

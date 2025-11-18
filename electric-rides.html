@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Rides - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .stats-card {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .stats-card h2 { font-size: 14px; opacity: 0.9; margin-bottom: 10px; }
+        .stats-card .number { font-size: 36px; font-weight: 700; margin-bottom: 5px; }
+        .ride-item {
+            padding: 15px;
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+        .ride-item h3 { color: #2d3748; font-size: 15px; margin-bottom: 5px; }
+        .ride-item p { color: #718096; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Electric Rides</h1>
+            <div class="stats-card">
+                <h2>Total Electric Rides</h2>
+                <div class="number">12</div>
+                <p style="font-size: 13px; opacity: 0.9;">Carbon saved: 45 kg CO₂</p>
+            </div>
+            <h2 style="margin-bottom: 15px; font-size: 20px; color: #2d3748;">Recent Electric Rides</h2>
+            <div class="ride-item">
+                <h3>🔌 Electric Ride</h3>
+                <p>Airport → Downtown • 2 days ago</p>
+            </div>
+            <div class="ride-item">
+                <h3>🔌 Electric Ride</h3>
+                <p>Home → Office • 5 days ago</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+    </script>
+</body>
+</html>
+

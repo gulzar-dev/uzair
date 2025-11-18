@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donations - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .cause-item {
+            padding: 20px;
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .cause-item:hover { background: #fee2e2; transform: translateX(5px); }
+        .cause-item h3 { color: #2d3748; font-size: 16px; margin-bottom: 8px; }
+        .cause-item p { color: #718096; font-size: 14px; line-height: 1.6; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Donations</h1>
+            <div class="cause-item" onclick="donate('education')">
+                <h3>📚 Education for All</h3>
+                <p>Support education initiatives for underprivileged children</p>
+            </div>
+            <div class="cause-item" onclick="donate('healthcare')">
+                <h3>🏥 Healthcare Support</h3>
+                <p>Help provide medical care to those in need</p>
+            </div>
+            <div class="cause-item" onclick="donate('environment')">
+                <h3>🌱 Environmental Conservation</h3>
+                <p>Support environmental protection and sustainability</p>
+            </div>
+            <div class="cause-item" onclick="donate('disaster')">
+                <h3>🚨 Disaster Relief</h3>
+                <p>Help communities affected by natural disasters</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+        
+        function donate(cause) {
+            const amount = prompt(`Enter donation amount for ${cause}:`);
+            if (amount && !isNaN(amount) && amount > 0) {
+                alert(`Thank you for your donation of ₹${amount}! Your contribution makes a difference.`);
+            }
+        }
+    </script>
+</body>
+</html>
+

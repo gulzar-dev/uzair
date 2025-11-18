@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data and Privacy - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .privacy-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .privacy-item:last-child { border-bottom: none; }
+        .privacy-item h3 { color: #2d3748; font-size: 16px; margin-bottom: 5px; }
+        .privacy-item p { color: #718096; font-size: 13px; }
+        .toggle-switch {
+            width: 50px;
+            height: 26px;
+            background: #cbd5e0;
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .toggle-switch.active { background: #667eea; }
+        .toggle-switch::after {
+            content: '';
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+        .toggle-switch.active::after { transform: translateX(24px); }
+        .flex { display: flex; justify-content: space-between; align-items: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Data and Privacy</h1>
+            <div class="privacy-item">
+                <div class="flex">
+                    <div>
+                        <h3>Location Services</h3>
+                        <p>Allow app to access your location</p>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggle(this)"></div>
+                </div>
+            </div>
+            <div class="privacy-item">
+                <div class="flex">
+                    <div>
+                        <h3>Data Analytics</h3>
+                        <p>Help improve app by sharing usage data</p>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggle(this)"></div>
+                </div>
+            </div>
+            <div class="privacy-item">
+                <div class="flex">
+                    <div>
+                        <h3>Marketing Communications</h3>
+                        <p>Receive promotional offers and updates</p>
+                    </div>
+                    <div class="toggle-switch" onclick="toggle(this)"></div>
+                </div>
+            </div>
+            <div class="privacy-item">
+                <div class="flex">
+                    <div>
+                        <h3>Share Data with Partners</h3>
+                        <p>Allow sharing anonymized data with partners</p>
+                    </div>
+                    <div class="toggle-switch" onclick="toggle(this)"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="margin-bottom: 15px; font-size: 20px;">Data Management</h2>
+            <button style="width: 100%; padding: 14px; background: #667eea; color: white; border: none; border-radius: 12px; margin-bottom: 10px; cursor: pointer;" onclick="downloadData()">Download My Data</button>
+            <button style="width: 100%; padding: 14px; background: #ef4444; color: white; border: none; border-radius: 12px; cursor: pointer;" onclick="deleteAccount()">Delete Account</button>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+        
+        function toggle(element) {
+            element.classList.toggle('active');
+        }
+        
+        function downloadData() {
+            alert('Your data download will be sent to your registered email.');
+        }
+        
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                sessionStorage.clear();
+                localStorage.clear();
+                alert('Account deleted. Redirecting to login...');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>
+

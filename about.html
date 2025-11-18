@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .info-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .info-item:last-child { border-bottom: none; }
+        .info-item h3 { color: #2d3748; font-size: 16px; margin-bottom: 5px; }
+        .info-item p { color: #718096; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <div class="card">
+            <h1>About</h1>
+            <div class="info-item">
+                <h3>App Version</h3>
+                <p>Smart Cab Service v1.0.0</p>
+            </div>
+            <div class="info-item">
+                <h3>Company</h3>
+                <p>Smart Cab Service Pvt. Ltd.</p>
+            </div>
+            <div class="info-item">
+                <h3>Contact</h3>
+                <p>support@smartcab.com</p>
+            </div>
+            <div class="info-item">
+                <h3>Terms of Service</h3>
+                <p>View our terms and conditions</p>
+            </div>
+            <div class="info-item">
+                <h3>Privacy Policy</h3>
+                <p>Learn how we protect your data</p>
+            </div>
+            <div class="info-item">
+                <h3>© 2024 Smart Cab Service</h3>
+                <p>All rights reserved</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Optional: Check if user is logged in, redirect to login if needed
+        // const userName = sessionStorage.getItem('userName');
+        // const userPhone = sessionStorage.getItem('userPhone');
+        // if (!userName || !userPhone) window.location.href = 'login.php';
+    </script>
+</body>
+</html>
+

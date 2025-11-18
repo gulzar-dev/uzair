@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Insurance - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .insurance-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+        .insurance-card h2 { font-size: 18px; margin-bottom: 10px; }
+        .insurance-card p { font-size: 14px; opacity: 0.9; line-height: 1.6; }
+        .benefit-item {
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+        .benefit-item h3 { color: #2d3748; font-size: 15px; margin-bottom: 5px; }
+        .benefit-item p { color: #718096; font-size: 13px; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Ride Insurance</h1>
+            <div class="insurance-card">
+                <h2>🛡️ Protect Your Rides</h2>
+                <p>Get comprehensive insurance coverage for all your rides. Stay protected with our affordable insurance plans.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>✓ Accident Coverage</h3>
+                <p>Up to ₹5,00,000 coverage for accidents during rides</p>
+            </div>
+            <div class="benefit-item">
+                <h3>✓ Medical Expenses</h3>
+                <p>Coverage for medical expenses up to ₹2,00,000</p>
+            </div>
+            <div class="benefit-item">
+                <h3>✓ 24/7 Support</h3>
+                <p>Round-the-clock insurance claim support</p>
+            </div>
+            <button class="btn" onclick="alert('Insurance activation coming soon!')">Activate Insurance</button>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+    </script>
+</body>
+</html>
+

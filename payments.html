@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Options - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .payment-method {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .payment-method:hover { border-color: #667eea; background: #f7fafc; }
+        .payment-method.selected { border-color: #667eea; background: #f0f4ff; }
+        .payment-info { display: flex; align-items: center; gap: 15px; }
+        .payment-icon { font-size: 32px; }
+        .payment-details h3 { color: #2d3748; font-size: 16px; margin-bottom: 3px; }
+        .payment-details p { color: #718096; font-size: 13px; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Payment Options</h1>
+            <div class="payment-method selected" onclick="selectPayment(this)">
+                <div class="payment-info">
+                    <div class="payment-icon">💳</div>
+                    <div class="payment-details">
+                        <h3>Credit/Debit Card</h3>
+                        <p>Add or manage cards</p>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-method" onclick="selectPayment(this)">
+                <div class="payment-info">
+                    <div class="payment-icon">💰</div>
+                    <div class="payment-details">
+                        <h3>Wallet</h3>
+                        <p>Use Ola Money wallet</p>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-method" onclick="window.location.href='bank-account.html'">
+                <div class="payment-info">
+                    <div class="payment-icon">🏦</div>
+                    <div class="payment-details">
+                        <h3>Bank Account</h3>
+                        <p>Link bank account</p>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-method" onclick="selectPayment(this)">
+                <div class="payment-info">
+                    <div class="payment-icon">💵</div>
+                    <div class="payment-details">
+                        <h3>Cash</h3>
+                        <p>Pay with cash</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn" onclick="window.location.href='wallet.html'">View Wallet</button>
+        </div>
+        <div class="card">
+            <h2 style="margin-bottom: 15px; font-size: 20px;">Offers & Promotions</h2>
+            <div style="padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white; margin-bottom: 10px;">
+                <h3 style="margin-bottom: 5px;">🎉 Get 20% Off</h3>
+                <p style="font-size: 13px; opacity: 0.9;">Use code SAVE20 on your next ride</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+        
+        function selectPayment(element) {
+            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+    </script>
+</body>
+</html>
+

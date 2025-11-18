@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #a855f7 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 50%, rgba(168, 85, 247, 0.95) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: 500;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            padding: 0;
+        }
+        h1 { color: white; margin-bottom: 25px; font-size: 28px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; color: white; font-weight: 500; margin-bottom: 8px; font-size: 16px; }
+        label span { font-weight: 400; }
+        input, select {
+            width: 100%;
+            padding: 14px;
+            padding-left: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        input::placeholder { color: rgba(255, 255, 255, 0.7); }
+        input:focus, select:focus { 
+            outline: none; 
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-group { position: relative; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102,126,234,0.4); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="history.back()" class="back-btn">← Back</button>
+        <div class="card">
+            <h1>Account Details</h1>
+            <form id="accountForm">
+                <div class="form-group">
+                    <label>Account Name</label>
+                    <div class="input-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7" fill="#ef4444" opacity="0.8"/>
+                            <rect x="14" y="3" width="7" height="7" fill="#f59e0b" opacity="0.8"/>
+                            <rect x="3" y="14" width="7" height="7" fill="#10b981" opacity="0.8"/>
+                            <rect x="14" y="14" width="7" height="7" fill="#3b82f6" opacity="0.8"/>
+                        </svg>
+                    </div>
+                    <input type="text" id="fullName" placeholder="Cab Services" required readonly />
+                </div>
+                <div class="form-group">
+                    <label>Display Name</label>
+                    <div class="input-icon">🪪</div>
+                    <input type="text" id="displayNameField" placeholder="Cab Services" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Public Information</label>
+                    <div class="input-icon">🌐</div>
+                    <input type="text" id="publicInfo" placeholder="Cab Services" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <div class="input-icon">📱</div>
+                    <input type="tel" id="phone" placeholder="-" maxlength="10" required />
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <div class="input-icon">✉️</div>
+                    <input type="email" id="email" placeholder="-" />
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <div class="input-icon">📅</div>
+                    <input type="date" id="dob" />
+                </div>
+                <button type="submit" class="btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const BRAND_IDENTITY = 'Cab Services';
+        const userPhone = sessionStorage.getItem('userPhone');
+        // Optional: Redirect to login if not authenticated
+        // if (!userPhone) window.location.href = 'login.php';
+        
+        sessionStorage.setItem('userName', BRAND_IDENTITY);
+        sessionStorage.setItem('userDisplayName', BRAND_IDENTITY);
+        sessionStorage.setItem('userPublicInfo', BRAND_IDENTITY);
+        
+        // Pre-fill form fields
+        document.getElementById('fullName').value = BRAND_IDENTITY;
+        document.getElementById('displayNameField').value = BRAND_IDENTITY;
+        document.getElementById('publicInfo').value = BRAND_IDENTITY;
+        document.getElementById('phone').value = userPhone;
+        
+        document.getElementById('accountForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Account details saved successfully!');
+            window.location.href = 'profile.html';
+        });
+    </script>
+</body>
+</html>
+

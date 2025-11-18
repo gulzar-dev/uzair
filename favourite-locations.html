@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favourite Locations - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; color: #2d3748; font-weight: 500; margin-bottom: 8px; }
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+        }
+        input:focus { outline: none; border-color: #667eea; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .location-item {
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .location-item h3 { color: #2d3748; font-size: 16px; margin-bottom: 5px; }
+        .location-item p { color: #718096; font-size: 14px; }
+        .delete-btn { background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Favourite Locations</h1>
+            <form id="locationForm">
+                <div class="form-group">
+                    <label>Location Name</label>
+                    <input type="text" id="locationName" placeholder="e.g., Home, Office" required />
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" id="address" placeholder="Enter full address" required />
+                </div>
+                <button type="submit" class="btn">Add Location</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2 style="margin-bottom: 15px; font-size: 20px;">Saved Locations</h2>
+            <div id="locationsList"></div>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+        
+        let locations = JSON.parse(localStorage.getItem('favouriteLocations') || '[]');
+        
+        function renderLocations() {
+            const list = document.getElementById('locationsList');
+            if (locations.length === 0) {
+                list.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No saved locations yet</p>';
+                return;
+            }
+            list.innerHTML = locations.map((loc, index) => `
+                <div class="location-item">
+                    <div>
+                        <h3>${loc.name}</h3>
+                        <p>${loc.address}</p>
+                    </div>
+                    <button class="delete-btn" onclick="deleteLocation(${index})">Delete</button>
+                </div>
+            `).join('');
+        }
+        
+        document.getElementById('locationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            locations.push({
+                name: document.getElementById('locationName').value,
+                address: document.getElementById('address').value
+            });
+            localStorage.setItem('favouriteLocations', JSON.stringify(locations));
+            document.getElementById('locationForm').reset();
+            renderLocations();
+        });
+        
+        function deleteLocation(index) {
+            locations.splice(index, 1);
+            localStorage.setItem('favouriteLocations', JSON.stringify(locations));
+            renderLocations();
+        }
+        
+        renderLocations();
+    </script>
+</body>
+</html>
+

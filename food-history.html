@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food History - Smart Cab Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .back-btn { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+        h1 { color: #2d3748; margin-bottom: 25px; font-size: 28px; }
+        .order-item {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .order-item h3 { color: #2d3748; font-size: 16px; margin-bottom: 8px; }
+        .order-item p { color: #718096; font-size: 14px; margin-bottom: 5px; }
+        .order-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .status-delivered { background: #d1fae5; color: #059669; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="profile.html" class="back-btn">← Back</a>
+        <div class="card">
+            <h1>Food History</h1>
+            <div id="ordersList">
+                <div class="order-item">
+                    <h3>🍔 Burger & Fries</h3>
+                    <p><strong>Restaurant:</strong> Fast Food Corner</p>
+                    <p><strong>Date:</strong> Today, 7:30 PM</p>
+                    <p><strong>Amount:</strong> ₹350</p>
+                    <span class="order-status status-delivered">DELIVERED</span>
+                </div>
+                <div class="order-item">
+                    <h3>🍕 Pizza Margherita</h3>
+                    <p><strong>Restaurant:</strong> Pizza Palace</p>
+                    <p><strong>Date:</strong> Yesterday, 8:15 PM</p>
+                    <p><strong>Amount:</strong> ₹450</p>
+                    <span class="order-status status-delivered">DELIVERED</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const userName = sessionStorage.getItem('userName');
+        const userPhone = sessionStorage.getItem('userPhone');
+        if (!userName || !userPhone) window.location.href = 'login.html';
+    </script>
+</body>
+</html>
+
